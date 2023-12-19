@@ -1,0 +1,140 @@
+{
+    "openapi": "3.0.0",
+    "title:": "Project FullStack",
+    "description": " Fornecimento de dados referente a administracao de um mini restaurante ",
+    "version": "1.0.0",
+    "paths": {
+        "/client": {
+            "get": {
+                "summary": "Busca por um unico Cliente",
+                "description": "Rota responsavel por retornar um unico cliente",
+                "tags": [
+                    "Cliente"
+                ]
+            },
+            "delete": {
+                "summary": "Exclui um Cliente",
+                "description": "Rota responsavel por deletar um unico cliente",
+                "tags": [
+                    "Cliente"
+                ]
+            },
+            "post": {
+                "summary": "Adiciona um novo Cliente",
+                "description": "Rota responsavel por adicionar um novo cliente",
+                "tags": [
+                    "Cliente"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#components/schemas/client"
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "summary": "Rota responsavel por atualizar um cliente",
+                "description": "Rota responsavel por atualizar um cliente ja existente",
+                "tags": [
+                    "Cliente"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/clients": {
+            "get": {
+                "summary": "Buaca todos os clientes",
+                "description": "Rota responsavel por retornar todos os clientes",
+                "tags": [
+                    "Clientes"
+                ]
+            }
+        },
+        "/pedido": {
+            "get": {
+                "summary": "Busca por um unico Pedido",
+                "description": "Rota responsavel por retornar um unico pedido",
+                "tags": [
+                    "Pedido"
+                ]
+            },
+            "delete": {
+                "summary": "Exclui um Pedido",
+                "description": "Rota responsavel por deletar um unico pedido",
+                "tags": [
+                    "Pedido"
+                ]
+            },
+            "post": {
+                "summary": "Adiciona um novo Pedido",
+                "description": "Rota responsavel por adicionar um novo pedido",
+                "tags": [
+                    "Pedido"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "summary": "Rota responsavel por atualizar um pedido",
+                "description": "Rota responsavel por atualizar um pedido ja existente",
+                "tags": [
+                    "Pedido"
+                ], 
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/pedidos": {
+            "get": {
+                "summary": "Buaca todos os pedidos",
+                "description": "Rota responsavel por retornar todos os pedidos",
+                "tags": [
+                    "Pedidos"
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "client": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "cpf": {
+                        "type": "string"
+                    },
+                    "id": {
+                        "type": "number"
+                    }
+                }
+            }
+        }
+    }
+}
