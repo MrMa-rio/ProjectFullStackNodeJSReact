@@ -1,13 +1,25 @@
+interface ClientProps {
+    name:string
+    cpf: string
+    telefone:string
+}
+
 export default class Client {
-    id: number;
-    name: string;
-    cpf: string;
+    name: string
+    cpf: string
+    telefone: string
 
-    private static nextId = 1;
+    constructor(client:ClientProps) {
+        this.name = client.name
+        this.cpf = client.cpf
+        this.telefone = client.telefone
+    }
 
-    constructor(name: string, cpf: string) {
-        this.id = Client.nextId++;
-        this.name = name;
-        this.cpf = cpf;
+    get object(): ClientProps {
+        return {
+            name: this.name,
+            cpf: this.cpf,
+            telefone: this.telefone
+        }
     }
 }

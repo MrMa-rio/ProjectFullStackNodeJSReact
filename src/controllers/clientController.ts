@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import Client from "../models/Client";
-import clientRepository from "../repositories/clientRepository";
+import clientRepository from "../repositories/ClientRepository";
 
 async function getClient(req: Request, res: Response, next: NextFunction) {
     const id = req.params.id;

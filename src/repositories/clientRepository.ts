@@ -1,63 +1,84 @@
 import Client from "../models/Client";
+import { connection } from "./configRepository";
 
-const clients: Client[] = [];
+// const clients: Client[] = [];
+connection.connect()
 
-async function getClient(id: number): Promise<Client | undefined> {
-    return new Promise((resolve, reject) => {
-        return resolve(clients.find(c => c.id === id));
-    })
+export class ClientRepository {
+    
 }
 
-async function getClients(): Promise<Client[]> {
-    return new Promise((resolve, reject) => {
-        return resolve(clients);
-    })
+export async function getClient(id: number): Promise<any> {
+
+    const sql = `SELECT * from tb_cliente where idCliente = ${id} `
+    const resultados = await new Promise((resolve, reject) => {
+        connection.query(sql, (error, results) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(results);
+          }
+        });
+      });
+    return resultados
+    
+    // return new Promise((resolve, reject) => {
+    //     return resolve(resultados.find(c => c.id === id));
+    // })
 }
 
+// async function getClients(): Promise<Client[]> {
+//     return new Promise((resolve, reject) => {
+//         return resolve(clients);
+//     })
+// }
 
-async function addClient(client: Client): Promise<Client> {
-    return new Promise((resolve, reject) => {
-        if (!client.name || !client.cpf) {
-            return reject(new Error("Cliente Invalido!!"))
-        }
-        const newClient = new Client(client.name, client.cpf)
-        clients.push(newClient)
-        return resolve(newClient)
-    })
-}
 
-async function updateClient(id: number, newClient: Client): Promise<Client | undefined> {
-    return new Promise((resolve, reject) => {
-        const index = clients.findIndex(c => c.id === id);
-        if (index >= 0) {
-            if (newClient.name && clients[index].name !== newClient.name)
-                clients[index].name = newClient.name;
+// async function addClient(client: Client): Promise<Client> {
+//     return new Promise((resolve, reject) => {
+//         if (!client.name || !client.cpf) {
+//             return reject(new Error("Cliente Invalido!!"))
+//         }
+//         const newClient = new Client(client.name, client.cpf)
+//         clients.push(newClient)
+//         return resolve(newClient)
+//     })
+// }
 
-            if (newClient.cpf && clients[index].cpf !== newClient.cpf)
-                clients[index].cpf = newClient.cpf;
+// async function updateClient(id: number, newClient: Client): Promise<Client | undefined> {
+//     return new Promise((resolve, reject) => {
+//         const index = clients.findIndex(c => c.id === id);
+//         if (index >= 0) {
+//             if (newClient.name && clients[index].name !== newClient.name)
+//                 clients[index].name = newClient.name;
 
-            return resolve(clients[index]);
-        }
-        return resolve(undefined);
-    })
-}
+//             if (newClient.cpf && clients[index].cpf !== newClient.cpf)
+//                 clients[index].cpf = newClient.cpf;
 
-async function deleteClient(id: number): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-        const index = clients.findIndex(c => c.id === id);
-        if (index >= 0) {
-            clients.splice(index, 1);
-            return resolve(true);
-        }
+//             return resolve(clients[index]);
+//         }
+//         return resolve(undefined);
+//     })
+// }
 
-        return resolve(false);
-    })
-}
+// async function deleteClient(id: number): Promise<boolean> {
+//     return new Promise((resolve, reject) => {
+//         const index = clients.findIndex(c => c.id === id);
+//         if (index >= 0) {
+//             clients.splice(index, 1);
+//             return resolve(true);
+//         }
 
-export default {
-    getClient,
-    getClients,
-    deleteClient,
-    addClient,
-    updateClient
-}
+//         return resolve(false);
+//     })
+// }
+
+// export default {
+//     getClient,
+//     getClients,
+//     deleteClient,
+//     addClient,
+//     updateClient
+// }
+
+
