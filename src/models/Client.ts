@@ -1,23 +1,22 @@
-interface ClientProps {
-    name:string
-    cpf: string
-    telefone:string
-}
+import { ClientProps } from "src/interfaces"
 
 export default class Client {
-    name: string
+    idCliente: number
+    nome: string
     cpf: string
     telefone: string
 
     constructor(client:ClientProps) {
-        this.name = client.name
+        this.idCliente = client.idCliente
+        this.nome = client.nome
         this.cpf = client.cpf
         this.telefone = client.telefone
     }
 
     get object(): ClientProps {
         return {
-            name: this.name,
+            idCliente: this.idCliente,
+            nome: this.nome,
             cpf: this.cpf,
             telefone: this.telefone
         }

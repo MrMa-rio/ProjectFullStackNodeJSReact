@@ -1,30 +1,49 @@
+import { ClientProps, DBGeneric, OrderProps } from "src/interfaces";
+import DB from "../data/db";
 import Client from "../models/Client";
-import { connection } from "./configRepository";
 
-// const clients: Client[] = [];
-connection.connect()
+export default class ClientRepository implements DBGeneric {
+  #DB: DB;
 
-export class ClientRepository {
-    
-}
+  constructor() {
+    this.#DB = new DB();
+  }
 
-export async function getClient(id: number): Promise<any> {
+  async getClients() {
+    const clientes = await this.#DB.getClients();
+    return clientes?.map((cliente) => new Client(cliente));
+  }
 
-    const sql = `SELECT * from tb_cliente where idCliente = ${id} `
-    const resultados = await new Promise((resolve, reject) => {
-        connection.query(sql, (error, results) => {
-          if (error) {
-            reject(error);
-          } else {
-            resolve(results);
-          }
-        });
-      });
-    return resultados
-    
-    // return new Promise((resolve, reject) => {
-    //     return resolve(resultados.find(c => c.id === id));
-    // })
+  async getClient(idCliente: number) {
+    const cliente = await this.#DB.getClient(idCliente);
+    return cliente?.map((cliente) => new Client(cliente));
+  }
+
+  async addClient(client: Omit<ClientProps, "idCliente">) {
+    const addClient = await this.#DB.addClient(client);
+    if (!addClient) return null;
+    return new Client(addClient);
+  }
+
+  async updateClient(client: ClientProps) {
+    const old_client = await this.#DB.getClient(client.idCliente);
+    if (!old_client) return null;
+    const updated_client = await this.#DB.updateClient({
+      ...old_client,
+      ...client,
+    });
+    if (updated_client) return new Client(updated_client);
+  }
+
+  getOrder(idPedido: number) {
+    return "";
+  }
+  addOrder(order: OrderProps) {
+    return "";
+  }
+  deleteOrder(idPedido: number) {
+    return "";
+  }
 }
 
 // async function getClients(): Promise<Client[]> {
@@ -32,7 +51,6 @@ export async function getClient(id: number): Promise<any> {
 //         return resolve(clients);
 //     })
 // }
-
 
 // async function addClient(client: Client): Promise<Client> {
 //     return new Promise((resolve, reject) => {
@@ -80,5 +98,3 @@ export async function getClient(id: number): Promise<any> {
 //     addClient,
 //     updateClient
 // }
-
-

@@ -1,29 +1,24 @@
-interface OrderProps {
-    idOrder: number
-    description: string
-    idClient: number
-    dateOrder: string
-}
+import { OrderProps } from "src/interfaces"
 
 export default class Order {
-    idOrder: number
-    description: string
-    idClient: number
-    dateOrder: string
+    idPedido: number
+    descricao: string
+    idCliente: number
+    dataPedido: string
 
     constructor(order: OrderProps) {
-        this.idOrder = order.idOrder
-        this.description = order.description
-        this.idClient = order.idClient
-        this.dateOrder = order.dateOrder
+        this.idPedido = order.idPedido
+        this.descricao = order.descricao
+        this.idCliente = order.idCliente
+        this.dataPedido = order.dataPedido
     }
 
     get object(): OrderProps {
         return {
-            idOrder: this.idOrder,
-            description: this.description,
-            idClient: this.idClient,
-            dateOrder: this.dateOrder
+            idPedido: this.idPedido,
+            descricao: this.descricao,
+            idCliente: this.idCliente,
+            dataPedido: this.dataPedido
         }
     }
 }
