@@ -24,11 +24,7 @@ export class OrderRepository {
     if (!order) return null;
     return new Order(order);
   }
-  async getItemsOrder(idOrder: number) {
-    const itemsOrder = await this.#DB.getItemsOrder(idOrder);
-    return itemsOrder?.map((itemOrder) => new ItemOrder(itemOrder));
-  }
-
+  
   async deleteOrder(idPedido: number) {
     return await this.#DB.deleteOrder(idPedido);
   }

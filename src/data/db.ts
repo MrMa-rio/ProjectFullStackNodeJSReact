@@ -38,17 +38,15 @@ export default class DB implements DBGeneric {
   async getClient(idCliente: number) {
     try {
       const sql = `SELECT * FROM db_restaurant.tb_cliente where idCliente = ${idCliente} ;`;
-      const resultados: ClientProps[] = await new Promise(
-        (resolve, reject) => {
-          connection.query(sql, (error, results: any) => {
-            if (error || !results[0]) {
-              reject(error);
-            } else {
-              resolve(results);
-            }
-          });
-        }
-      );
+      const resultados: ClientProps[] = await new Promise((resolve, reject) => {
+        connection.query(sql, (error, results: any) => {
+          if (error || !results[0]) {
+            reject(error);
+          } else {
+            resolve(results);
+          }
+        });
+      });
       return resultados[0];
     } catch (error) {
       console.log(error);
@@ -186,6 +184,31 @@ export default class DB implements DBGeneric {
     }
   }
 
+  async addItemInOrder(
+    idPedido: number,
+    itemInOrder: Omit<ItemOrderProps, "id">
+  ) {
+    try {
+      const sql = `call db_restaurant.addItemInOrder(${idPedido}, ${itemInOrder.fkItem}, ${itemInOrder.quantidade}, ${itemInOrder.preco_unitario});`;
+      const resultados: ItemOrderProps[] = await new Promise(
+        (resolve, reject) => {
+          connection.query(sql, (error: QueryError, results: any) => {
+            if (error || !results[0]) {
+              reject(error);
+              throw "Falha na operacao";
+            } else {
+              console.log(results);
+              resolve(results);
+            }
+          });
+        }
+      );
+      return resultados[0];
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   // Itens
 
   async getItem(idItem: number) {
@@ -195,9 +218,8 @@ export default class DB implements DBGeneric {
         connection.query(sql, (error: QueryError, results: any) => {
           if (error || !results[0]) {
             reject(error);
-            throw ("Falha na operacao")
-          }
-          else {
+            throw "Falha na operacao";
+          } else {
             console.log(results);
             resolve(results);
           }
