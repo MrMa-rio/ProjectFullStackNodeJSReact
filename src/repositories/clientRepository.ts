@@ -1,8 +1,8 @@
-import { ClientProps, DBGeneric, OrderProps } from "src/interfaces";
-import DB from "../data/db";
+import { ClientProps } from "../interfaces";
 import Client from "../models/Client";
+import DB from "../data/db";
 
-export default class ClientRepository implements DBGeneric {
+export default class ClientRepository {
   #DB: DB;
 
   constructor() {
@@ -11,12 +11,14 @@ export default class ClientRepository implements DBGeneric {
 
   async getClients() {
     const clientes = await this.#DB.getClients();
+    if (!clientes) return [];
     return clientes?.map((cliente) => new Client(cliente));
   }
 
   async getClient(idCliente: number) {
     const cliente = await this.#DB.getClient(idCliente);
-    return cliente?.map((cliente) => new Client(cliente));
+    if(!cliente) return null
+    return new Client(cliente);
   }
 
   async addClient(client: Omit<ClientProps, "idCliente">) {
@@ -34,67 +36,4 @@ export default class ClientRepository implements DBGeneric {
     });
     if (updated_client) return new Client(updated_client);
   }
-
-  getOrder(idPedido: number) {
-    return "";
-  }
-  addOrder(order: OrderProps) {
-    return "";
-  }
-  deleteOrder(idPedido: number) {
-    return "";
-  }
 }
-
-// async function getClients(): Promise<Client[]> {
-//     return new Promise((resolve, reject) => {
-//         return resolve(clients);
-//     })
-// }
-
-// async function addClient(client: Client): Promise<Client> {
-//     return new Promise((resolve, reject) => {
-//         if (!client.name || !client.cpf) {
-//             return reject(new Error("Cliente Invalido!!"))
-//         }
-//         const newClient = new Client(client.name, client.cpf)
-//         clients.push(newClient)
-//         return resolve(newClient)
-//     })
-// }
-
-// async function updateClient(id: number, newClient: Client): Promise<Client | undefined> {
-//     return new Promise((resolve, reject) => {
-//         const index = clients.findIndex(c => c.id === id);
-//         if (index >= 0) {
-//             if (newClient.name && clients[index].name !== newClient.name)
-//                 clients[index].name = newClient.name;
-
-//             if (newClient.cpf && clients[index].cpf !== newClient.cpf)
-//                 clients[index].cpf = newClient.cpf;
-
-//             return resolve(clients[index]);
-//         }
-//         return resolve(undefined);
-//     })
-// }
-
-// async function deleteClient(id: number): Promise<boolean> {
-//     return new Promise((resolve, reject) => {
-//         const index = clients.findIndex(c => c.id === id);
-//         if (index >= 0) {
-//             clients.splice(index, 1);
-//             return resolve(true);
-//         }
-
-//         return resolve(false);
-//     })
-// }
-
-// export default {
-//     getClient,
-//     getClients,
-//     deleteClient,
-//     addClient,
-//     updateClient
-// }
