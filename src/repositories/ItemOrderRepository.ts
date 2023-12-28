@@ -1,6 +1,6 @@
-import ItemOrder from "src/models/ItemOrder";
+import ItemOrder from "../models/ItemOrder";
 import DB from "../data/db";
-import { ItemOrderProps } from "src/interfaces";
+import { ItemOrderProps } from "../interfaces";
 
 export default class ItemOrderRepository {
   #DB: DB;
@@ -9,9 +9,15 @@ export default class ItemOrderRepository {
     this.#DB = new DB();
   }
 
-  async addItemsOrder(idPedido:number, itemOrder: ItemOrderProps) {
-    return await this.#DB.addItemInOrder(idPedido, itemOrder) // TODO: analisar a logica dessa arvore
-  }
+  // async addItemsOrder(itemOrder: Omit<ItemOrderProps, "id">[]) {
+  //   const _itemOrder:ItemOrderProps[] = []
+  //   itemOrder.map(async (teste) => await this.#DB.addItemsOrder(teste).then(sucesso => sucesso && _itemOrder.push(sucesso))) // TODO: analisar a logica dessa arvore
+  //   if(!_itemOrder) return null
+  //   console.log(_itemOrder)
+  //   return _itemOrder
+  // }
+
+
   async getItemsOrder(idOrder: number) {
     const itemsOrder = await this.#DB.getItemsOrder(idOrder);
     return itemsOrder?.map((itemOrder) => new ItemOrder(itemOrder));

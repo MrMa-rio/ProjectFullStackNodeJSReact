@@ -1,5 +1,5 @@
 import { ItemOrderProps } from "src/interfaces";
-import ItemOrderRepository from "src/repositories/ItemOrderRepository";
+import ItemOrderRepository from "../repositories/ItemOrderRepository";
 
 export default class ItemOrderServices {
   itemOrderRepository: ItemOrderRepository;
@@ -11,9 +11,9 @@ export default class ItemOrderServices {
   async getItemsOrder(idPedido: number) {
     return await this.itemOrderRepository.getItemsOrder(idPedido);
   }
-  async addItemInOrder(idPedido: number, itemInOrder: ItemOrderProps[]) {
-    return itemInOrder.map(async (itemInOrder) => {
-        return await this.itemOrderRepository.addItemsOrder(idPedido, itemInOrder) //analisar essa parte 
-    } )
-  }
+
+  // async addItemsOrder(itemsOrder: Omit<ItemOrderProps, "id">[]) {
+    
+  //   return await this.itemOrderRepository.addItemsOrder(itemsOrder); //analisar essa parte
+  // }
 }
