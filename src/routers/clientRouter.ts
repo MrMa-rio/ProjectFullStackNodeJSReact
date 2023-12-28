@@ -1,14 +1,12 @@
 import express, {Request, Response} from "express";
-import { ItemRepository } from "../repositories";
-
+import { ItemOrderRepository } from "../repositories";
 const router = express.Router();
-const Cliente = new ItemRepository()
+const Cliente = new ItemOrderRepository()
 // router.get('/:id', clientController.getClient);
 
 router.get('/', async (req: Request, res: Response) => {
     try {
-        console.log(req.url)
-        const teste = await Cliente.getItem(5) //fazendo testes direto
+        const teste = await Cliente.addItemsOrder([{fkItem:1, fkPedido:1, preco_unitario: 1, quantidade:18}]) //fazendo testes direto
         if(teste) res.json(teste)
         
       } catch (error) {

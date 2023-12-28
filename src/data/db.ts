@@ -184,26 +184,22 @@ export default class DB implements DBGeneric {
     }
   }
 
-  async addItemInOrder(
-    idPedido: number,
-    itemInOrder: Omit<ItemOrderProps, "id">
-  ) {
+  async addItemsOrder(itemInOrder: Omit<ItemOrderProps, "id">) {
     try {
-      const sql = `call db_restaurant.addItemInOrder(${idPedido}, ${itemInOrder.fkItem}, ${itemInOrder.quantidade}, ${itemInOrder.preco_unitario});`;
-      const resultados: ItemOrderProps[] = await new Promise(
+      const sql = `call db_restaurant.addItemInOrder(${itemInOrder.fkPedido}, ${itemInOrder.fkItem}, ${itemInOrder.quantidade}, ${itemInOrder.preco_unitario});`;
+      const resultados: ItemOrderProps = await new Promise(
         (resolve, reject) => {
-          connection.query(sql, (error: QueryError, results: any) => {
-            if (error || !results[0]) {
+          connection.query(sql, (error, results: any) => {
+            if (error) {
               reject(error);
-              throw "Falha na operacao";
             } else {
-              console.log(results);
-              resolve(results);
+              //console.log(results[0][0]); //Ele nao e afetado pela promisse
+              resolve(results[0][0]);
             }
           });
         }
       );
-      return resultados[0];
+      return resultados;
     } catch (error) {
       console.log(error);
     }

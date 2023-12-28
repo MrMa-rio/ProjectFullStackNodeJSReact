@@ -1,20 +1,22 @@
-import ItemOrder from "src/models/ItemOrder";
+import ItemOrder from "../models/ItemOrder";
 import DB from "../data/db";
-import { ItemOrderProps } from "src/interfaces";
+import { ItemOrderProps } from "../interfaces";
 
-export default class ItemOrderRepository {
+export class ItemOrderRepository {
   #DB: DB;
 
   constructor() {
     this.#DB = new DB();
   }
 
-  async addItemsOrder(idPedido:number, itemOrder: ItemOrderProps) {
-    return await this.#DB.addItemInOrder(idPedido, itemOrder) // TODO: analisar a logica dessa arvore
+  async addItemsOrder(itemOrder: Omit<ItemOrderProps, "id">[]) {
+    return await Promise.all(itemOrder.map(async (result) => {
+      return await this.#DB.addItemsOrder(result)
+    }))
   }
+
   async getItemsOrder(idOrder: number) {
     const itemsOrder = await this.#DB.getItemsOrder(idOrder);
     return itemsOrder?.map((itemOrder) => new ItemOrder(itemOrder));
   }
-
 }
