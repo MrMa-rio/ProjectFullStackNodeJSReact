@@ -1,8 +1,8 @@
-import { OrderRepository } from "src/repositories";
+import { OrderRepository } from "../repositories";
 import { OrderProps } from "../interfaces";
 
-export default class OrderServices {
-  orderRepository: OrderRepository;
+export class OrderServices {
+  private orderRepository: OrderRepository;
 
   constructor() {
     this.orderRepository = new OrderRepository();

@@ -132,18 +132,18 @@ export default class DB implements DBGeneric {
 
   async addOrder(order: Omit<OrderProps, "idPedido">) {
     try {
-      const sql = `call db_restaurant.addOrder('${order.dataPedido}', '${order.idCliente}', '${order.descricao}');`;
+      console.log(order)
+      const sql = `call db_restaurant.addOrder('${order.dataPedido}', '${order.fkCliente}', '${order.descricao}');`;
       const resultados: OrderProps[] = await new Promise((resolve, reject) => {
         connection.query(sql, (error, results: any) => {
           if (error) {
             reject(error);
           } else {
-            console.log(results[0]);
             resolve(results[0]);
           }
         });
       });
-      return new Order(resultados[0]);
+      return resultados[0];
     } catch (error) {
       console.log(error);
     }

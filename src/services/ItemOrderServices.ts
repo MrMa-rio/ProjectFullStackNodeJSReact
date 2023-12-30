@@ -1,8 +1,8 @@
-import { ItemOrderProps } from "src/interfaces";
-import ItemOrderRepository from "src/repositories/ItemOrderRepository";
+import { ItemOrderProps } from "../interfaces";
+import { ItemOrderRepository } from "../repositories";
 
-export default class ItemOrderServices {
-  itemOrderRepository: ItemOrderRepository;
+export class ItemOrderServices {
+  private itemOrderRepository: ItemOrderRepository;
 
   constructor() {
     this.itemOrderRepository = new ItemOrderRepository();
@@ -13,7 +13,6 @@ export default class ItemOrderServices {
   }
 
   async addItemsOrder(itemsOrder: Omit<ItemOrderProps, "id">[]) {
-    
     return await this.itemOrderRepository.addItemsOrder(itemsOrder); //analisar essa parte
   }
 }

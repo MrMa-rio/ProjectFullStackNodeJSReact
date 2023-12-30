@@ -1,6 +1,6 @@
 export interface OrderProps {
     idPedido: number
     descricao: string
-    idCliente: number
+    fkCliente: number
     dataPedido: string
 }

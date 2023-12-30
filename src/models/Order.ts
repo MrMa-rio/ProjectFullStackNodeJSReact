@@ -3,13 +3,13 @@ import { OrderProps } from "../interfaces";
 export default class Order {
   idPedido: number;
   descricao: string;
-  idCliente: number;
+  fkCliente: number;
   dataPedido: string;
 
   constructor(order: OrderProps) {
     this.idPedido = order.idPedido;
     this.descricao = order.descricao;
-    this.idCliente = order.idCliente;
+    this.fkCliente = order.fkCliente;
     this.dataPedido = order.dataPedido;
   }
 
@@ -17,7 +17,7 @@ export default class Order {
     return {
       idPedido: this.idPedido,
       descricao: this.descricao,
-      idCliente: this.idCliente,
+      fkCliente: this.fkCliente,
       dataPedido: this.dataPedido,
     };
   }

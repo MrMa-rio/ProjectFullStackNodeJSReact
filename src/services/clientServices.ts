@@ -1,10 +1,9 @@
-import ClientRepository from "src/repositories/ClientRepository";
-import { ClientProps } from "../interfaces";
+import { ClientRepository } from "../repositories";
+import { ClientProps, ResponseBodyProps } from "../interfaces";
+import Client from "src/models/Client";
 
-export default class ClientServices {
-
-  clientRepository: ClientRepository;
-
+export class ClientServices {
+  private clientRepository: ClientRepository;
   constructor() {
     this.clientRepository = new ClientRepository();
   }
@@ -25,5 +24,4 @@ export default class ClientServices {
     if (!cliente) return null;
     return await this.clientRepository.updateClient(cliente);
   }
-  
 }
