@@ -1,6 +1,5 @@
 import { ClientRepository } from "../repositories";
-import { ClientProps, ResponseBodyProps } from "../interfaces";
-import Client from "src/models/Client";
+import { ClientProps } from "../interfaces";
 
 export class ClientServices {
   private clientRepository: ClientRepository;
