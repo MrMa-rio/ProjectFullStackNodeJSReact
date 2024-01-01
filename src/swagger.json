@@ -4,20 +4,33 @@
     "description": " Fornecimento de dados referente a administracao de um mini restaurante ",
     "version": "1.0.0",
     "paths": {
-        "/client": {
+        "/clientes": {
             "get": {
-                "summary": "Busca por um unico Cliente",
-                "description": "Rota responsavel por retornar um unico cliente",
+                "summary": "Busca todos os clientes",
+                "description": "Rota responsavel por retornar todos os clientes",
                 "tags": [
                     "Cliente"
-                ]
-            },
-            "delete": {
-                "summary": "Exclui um Cliente",
-                "description": "Rota responsavel por deletar um unico cliente",
-                "tags": [
-                    "Cliente"
-                ]
+                ],
+                "responses": {
+                    "200":{
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/cliente"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/status"
+                                }
+                            }
+                        }
+                    }
+                }
             },
             "post": {
                 "summary": "Adiciona um novo Cliente",
@@ -29,7 +42,27 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#components/schemas/client"
+                                "$ref": "#components/schemas/addCliente"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200":{
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/cliente"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/status"
+                                }
                             }
                         }
                     }
@@ -45,31 +78,114 @@
                     "content": {
                         "application/json": {
                             "schema": {
-
+                                "$ref": "#components/schemas/cliente"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200":{
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/cliente"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/status"
+                                }
                             }
                         }
                     }
                 }
             }
         },
-        "/clients": {
+        "/clientes/{idCliente}": {
+            
             "get": {
-                "summary": "Buaca todos os clientes",
-                "description": "Rota responsavel por retornar todos os clientes",
+                "parameters": [
+                    {
+                      "in": "path",
+                      "name": "idCliente",
+                      "required": true,
+                      "schema": {
+                        "type": "number"
+                      },
+                      "description": "Id do Cliente"
+                    }
+                  ],
+                "summary": "Busca por um unico Cliente",
+                "description": "Rota responsavel por retornar um unico cliente",
                 "tags": [
-                    "Clientes"
-                ]
+                    "Cliente"
+                ],
+                "responses": {
+                    "200":{
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/cliente"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/status"
+                                }
+                            }
+                        }
+                    }
+                }
             }
         },
-        "/pedido": {
+        "/pedidos": {
             "get": {
-                "summary": "Busca por um unico Pedido",
-                "description": "Rota responsavel por retornar um unico pedido",
+                "summary": "Busca todos os pedidos",
+                "description": "Rota responsavel por retornar todos os pedidos",
                 "tags": [
                     "Pedido"
-                ]
+                ],
+                "responses": {
+                    "200":{
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/pedido"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/status"
+                                }
+                            }
+                        }
+                    }
+                }
             },
             "delete": {
+                "parameters": [
+                    {
+                      "in": "path",
+                      "name": "idPedido",
+                      "required": true,
+                      "schema": {
+                        "type": "number"
+                      },
+                      "description": "Id do Pedido"
+                    }
+                ],
                 "summary": "Exclui um Pedido",
                 "description": "Rota responsavel por deletar um unico pedido",
                 "tags": [
@@ -86,7 +202,27 @@
                     "content": {
                         "application/json": {
                             "schema": {
-
+                                "$ref": "#components/schemas/addPedido"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200":{
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/pedido"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/status"
+                                }
                             }
                         }
                     }
@@ -102,36 +238,146 @@
                     "content": {
                         "application/json": {
                             "schema": {
-
+                                "$ref": "#components/schemas/pedido"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200":{
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/pedido"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/status"
+                                }
                             }
                         }
                     }
                 }
             }
         },
-        "/pedidos": {
+        "/pedidos/{idPedido}": {
             "get": {
-                "summary": "Buaca todos os pedidos",
-                "description": "Rota responsavel por retornar todos os pedidos",
+                "parameters": [
+                    {
+                      "in": "path",
+                      "name": "idPedido",
+                      "required": true,
+                      "schema": {
+                        "type": "number"
+                      },
+                      "description": "Id do Pedido"
+                    }
+                ],
+                "summary": "Busca por um unico Pedido",
+                "description": "Rota responsavel por retornar um unico pedido",
                 "tags": [
-                    "Pedidos"
-                ]
+                    "Pedido"
+                ],
+                "responses": {
+                    "200":{
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/pedido"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/status"
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     },
     "components": {
         "schemas": {
-            "client": {
+            "addCliente": {
                 "type": "object",
                 "properties": {
-                    "name": {
+                    "nome": {
                         "type": "string"
                     },
                     "cpf": {
                         "type": "string"
                     },
-                    "id": {
+                    "telefone": {
+                        "type": "string"
+                    }
+                }
+            },
+            "cliente": {
+                "type": "object",
+                "properties": {
+                    "idCliente": {
                         "type": "number"
+                    },
+                    "nome": {
+                        "type": "string"
+                    },
+                    "cpf": {
+                        "type": "string"
+                    },
+                    "telefone": {
+                        "type": "string"
+                    }
+                }
+            },
+            "addPedido":{
+                "type":"object",
+                "properties":{
+                    "descricao": {
+                        "type": "string"
+                    },
+                    "fkCliente": {
+                        "type":"number"
+                    },
+                    "dataPedido": {
+                        "type": "string"
+                    }
+                }       
+            },
+            "pedido":{
+                "type":"object",
+                "properties":{
+                    "idPedido": {
+                        "type":"number"
+                    },
+                    "descricao": {
+                        "type": "string"
+                    },
+                    "fkCliente": {
+                        "type":"number"
+                    },
+                    "dataPedido": {
+                        "type": "string"
+                    }
+                }       
+            },
+            "status": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "number"
+                    },
+                    "message": {
+                        "type": "string"
                     }
                 }
             }

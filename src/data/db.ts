@@ -132,7 +132,7 @@ export default class DB implements DBGeneric {
 
   async addOrder(order: Omit<OrderProps, "idPedido">) {
     try {
-      console.log(order)
+      console.log(order);
       const sql = `call db_restaurant.addOrder('${order.dataPedido}', '${order.fkCliente}', '${order.descricao}');`;
       const resultados: OrderProps[] = await new Promise((resolve, reject) => {
         connection.query(sql, (error, results: any) => {
@@ -150,17 +150,24 @@ export default class DB implements DBGeneric {
   }
 
   async deleteOrder(idPedido: number) {
-    const sql = `call db_restaurant.deleteOrder(${idPedido});`;
-    const resultados = await new Promise((resolve, reject) => {
-      connection.query(sql, (error, results: OrderProps) => {
-        if (error) {
-          reject(error);
-        } else {
-          console.log(results);
-          resolve(results);
-        }
+    try {
+      const sql = `call db_restaurant.deleteOrder(${idPedido});`;
+      const resultados = await new Promise((resolve, reject) => {
+        connection.query(sql, (error, results: OrderProps) => {
+          if (error) {
+            reject(error);
+          } else {
+            console.log(results);
+            resolve(results);
+          }
+        });
       });
-    });
+      return {status:200, message:"Operacao realizada com sucesso!"}
+    } catch (error) {
+      console.error(error);
+      return {status:400, message:"Falha na operacao!"}
+
+    }
   }
 
   async getItemsOrder(idOrder: number) {

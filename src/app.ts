@@ -26,13 +26,13 @@ app.use(express.json());
 // })
 app.use("/documentation", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
-app.use("/clients", ClientRouter);
+app.use("/clientes", ClientRouter);
 
-app.use("/orders", OrderRouter);
+app.use("/pedidos", OrderRouter);
 
 app.use("/items", ItemRouter);
 
-app.use("/itemsOrders", ItemOrderRouter);
+app.use("/itemspedidos", ItemOrderRouter);
 
 app.use("/auth", AuthRouter);
 
