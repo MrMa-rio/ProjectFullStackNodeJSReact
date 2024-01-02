@@ -5,6 +5,7 @@ import {
   DBGeneric,
   ItemOrderProps,
   ItemProps,
+  UsuarioProps,
 } from "../interfaces";
 import { connection } from "./configConnection";
 import Client from "../models/Client";
@@ -162,11 +163,10 @@ export default class DB implements DBGeneric {
           }
         });
       });
-      return {status:200, message:"Operacao realizada com sucesso!"}
+      return { status: 200, message: "Operacao realizada com sucesso!" };
     } catch (error) {
       console.error(error);
-      return {status:400, message:"Falha na operacao!"}
-
+      return { status: 400, message: "Falha na operacao!" };
     }
   }
 
@@ -292,7 +292,7 @@ export default class DB implements DBGeneric {
   async deleteItem(idItem: number) {
     const sql = `call db_restaurant.deleteItem(${idItem});`;
     const resultados = await new Promise((resolve, reject) => {
-      connection.query(sql, (error, results: ItemProps) => {
+      connection.query(sql, (error: QueryError, results: ItemProps) => {
         if (error) {
           reject(error);
         } else {
@@ -301,5 +301,49 @@ export default class DB implements DBGeneric {
         }
       });
     });
+  }
+  async CheckUser(nome: string, senha: string) {
+    try {
+      const sql = `call db_restaurant.ChecaUsuarioSenha('${nome}', '${senha}');`;
+      const resultados: number = await new Promise((resolve, reject) => {
+        connection.query(sql, (error: QueryError, results: number) => {
+          if (error) {
+            reject(error);
+          } else {
+            console.log(results);
+            resolve(results);
+          }
+        });
+      });
+      return resultados;
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async dataUser(nome: string, senha: string) {
+    try {
+      const statusCode = await this.CheckUser(nome, senha);
+      if(statusCode == 200){
+        const sql = `call db_restaurant.getUsuario('${nome}', '${senha}');`
+        const resultados: UsuarioProps[] = await new Promise((resolve, reject) => {
+          connection.query(sql, (error: QueryError, results: any) => {
+            if (error || !results[0]) {
+              reject(error);
+              throw "Falha na operacao";
+            } else {
+              console.log(results);
+              resolve(results);
+            }
+          });
+        });
+        return resultados[0];
+      }
+      else{
+        return statusCode
+      }
+    } catch (error) {
+      
+    }
   }
 }

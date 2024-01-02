@@ -304,6 +304,84 @@
                     }
                 }
             }
+        },
+        "/itemspedidos/{idPedido}": {
+            "get": {
+                "parameters": [
+                    {
+                      "in": "path",
+                      "name": "idPedido",
+                      "required": true,
+                      "schema": {
+                        "type": "number"
+                      },
+                      "description": "Id do Pedido"
+                    }
+                  ],
+                "summary": "Busca por uma lista de itens daquele pedido",
+                "description": "Rota responsavel por todos os itens daquele pedido",
+                "tags": [
+                    "Itens do Pedido"
+                ],
+                "responses": {
+                    "200":{
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/itemPedido"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/status"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/itemspedidos": {
+            "post": {
+                "summary":"Adiciona um novo item para um pedido",
+                "description":"Rota responsavel por adicionar itens em um pedido",
+                "tags": [
+                    "Itens do Pedido"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#components/schemas/addItemPedido"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200":{
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/itemPedido"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/status"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -369,6 +447,41 @@
                         "type": "string"
                     }
                 }       
+            },
+            "addItemPedido": {
+                "type": "object",
+                "properties":{
+                "fkPedido": {
+                    "type":"number"
+                },
+                "fkItem": {
+                    "type":"number"
+                },
+                "quantidade": {
+                    "type":"number"
+                },
+                "preco_unitario": {
+                    "type":"string"
+                }}
+            },
+            "itemPedido": {
+                "type":"object",
+                "properties":{
+                "id": {
+                    "type":"number"
+                },
+                "fkPedido": {
+                    "type":"number"
+                },
+                "fkItem": {
+                    "type":"number"
+                },
+                "quantidade": {
+                    "type":"number"
+                },
+                "preco_unitario": {
+                    "type":"string"
+                }}
             },
             "status": {
                 "type": "object",
