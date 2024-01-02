@@ -21,9 +21,6 @@ app.use(helmet());
 
 app.use(express.json());
 
-// app.use((req: Request, res: Response, next: NextFunction) => {
-//     res.send("Hello World");
-// })
 app.use("/documentation", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.use("/clientes", ClientRouter);
