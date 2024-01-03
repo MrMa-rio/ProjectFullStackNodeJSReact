@@ -1,5 +1,5 @@
-export interface UsuarioProps {
-  idUsuario: number;
+export interface ClienteProps {
+  idCliente: number;
   nome: string;
   cpf: string;
   imagem_64: string;
@@ -7,4 +7,3 @@ export interface UsuarioProps {
   data_nascimento: string;
   nivel_acesso: number;
 }
-

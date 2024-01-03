@@ -1,11 +1,11 @@
-import { ClientProps, OrderProps } from "../../interfaces";
+import { ClienteProps, OrderProps } from "../../interfaces";
 import { ItemProps } from "../ItemProps/ItemProps";
 
 export interface DBGeneric {
-  getClients: () => {};
-  getClient: (idCliente: number) => {};
-  addClient: (client: ClientProps) => {};
-  updateClient: (client: ClientProps) => {};
+  getClientes: () => {};
+  getCliente: (idCliente: number) => {};
+  addCliente: (client: ClienteProps) => {};
+  updateCliente: (client: ClienteProps) => {};
 
   getOrders: () => {};
   getOrder: (idPedido: number) => {};

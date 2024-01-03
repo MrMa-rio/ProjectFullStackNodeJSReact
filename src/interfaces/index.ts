@@ -1,5 +1,5 @@
 export * from "./DBGeneric/DBGeneric"
-export * from "./ClientProps/ClientProps"
+export * from "./ClienteProps/ClienteProps"
 export * from "./OrderProps/OrderProps"
 export * from "./ItemProps/ItemProps"
 export * from "./ItemOrderProps/ItemOrderProps"

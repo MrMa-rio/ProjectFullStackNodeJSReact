@@ -1,12 +1,12 @@
 import express, { NextFunction, Request, Response } from "express";
-import { ClientController,AuthController } from "../controllers";
+import { ClienteController,AuthController } from "../controllers";
 const router = express.Router();
-const clientController = new ClientController();
+const clientController = new ClienteController();
 const authController = new AuthController()
 
 router.get("/", authController.verificaTokenUsuario  ,async (req: Request, res: Response, next: NextFunction) => {
   try {
-    clientController.getClients(req, res, next); 
+    clientController.getClientes(req, res, next); 
   } catch (error) {
     console.error("Erro na consulta ao banco de dados:", error);
     res.status(500).send("Erro interno do servidor");
@@ -15,7 +15,7 @@ router.get("/", authController.verificaTokenUsuario  ,async (req: Request, res: 
 
 router.get("/:idCliente",authController.verificaTokenUsuario, async (req: Request, res: Response, next: NextFunction) => {
     try {
-      clientController.getClient(req, res, next); 
+      clientController.getCliente(req, res, next); 
     } catch (error) {
       console.error("Erro na consulta ao banco de dados:", error);
       res.status(500).send("Erro interno do servidor");
@@ -25,7 +25,7 @@ router.get("/:idCliente",authController.verificaTokenUsuario, async (req: Reques
 
 router.post("/",authController.verificaTokenUsuario, async (req: Request, res: Response, next: NextFunction) => {
   try {
-    clientController.addClient(req, res, next);
+    clientController.addCliente(req, res, next);
   } catch (error) {
     next(error)
   }
@@ -33,7 +33,7 @@ router.post("/",authController.verificaTokenUsuario, async (req: Request, res: R
 
 router.patch("/",authController.verificaTokenUsuario, async (req: Request, res: Response, next: NextFunction) => {
   try {
-    clientController.updateClient(req, res, next);
+    clientController.updateCliente(req, res, next);
   } catch (error) {
     next(error)
   }

@@ -1,27 +1,27 @@
 import { NextFunction, Request, Response } from "express";
-import { ClientServices } from "../services";
+import { ClienteServices } from "../services";
 
-export class ClientController {
-  private clientServices: ClientServices;
+export class ClienteController {
+  private clienteServices: ClienteServices;
 
   constructor() {
-    this.clientServices = new ClientServices();
+    this.clienteServices = new ClienteServices();
   }
-  async getClients(req: Request, res: Response, next: NextFunction) {
+  async getClientes(req: Request, res: Response, next: NextFunction) {
     try {
-      const response = await this.clientServices.getClients();
+      const response = await this.clienteServices.getClientes();
       return res.status(200).json(response);
     } catch (e) {
       return next(e);
     }
   }
 
-  async getClient(req: Request, res: Response, next: NextFunction) {
+  async getCliente(req: Request, res: Response, next: NextFunction) {
     try {
       const cliente = req.params.idCliente;
       if (isNaN(Number(cliente)))
         return res.status(400).json({ message: " Erro generico na operacao " }); //Caberia uma chamada no banco para trazer mensagens dinamica do mesmo.
-      const response = await this.clientServices.getClient(Number(cliente));
+      const response = await this.clienteServices.getCliente(Number(cliente));
       if (!response)
         return res.status(400).json({ message: " Erro generico na operacao " }); 
       return res.status(200).json(response);
@@ -30,10 +30,10 @@ export class ClientController {
     }
   }
 
-  async addClient(req: Request, res: Response, next: NextFunction) {
+  async addCliente(req: Request, res: Response, next: NextFunction) {
     try {
       console.log(req.body);
-      const response = await this.clientServices.addClient(req.body);
+      const response = await this.clienteServices.addCliente(req.body);
       if (!response)
         return res.status(400).json({ message: " Erro generico na operacao " });
       return res.status(200).json(response);
@@ -42,10 +42,10 @@ export class ClientController {
     }
   }
 
-  async updateClient(req: Request, res: Response, next: NextFunction) {
+  async updateCliente(req: Request, res: Response, next: NextFunction) {
     try {
       console.log(req.body);
-      const response = await this.clientServices.updateClient(req.body);
+      const response = await this.clienteServices.updateCliente(req.body);
       if (!response)
         return res.status(400).json({ message: " Erro generico na operacao " });
       return res.status(200).json(response);
