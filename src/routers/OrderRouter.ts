@@ -1,9 +1,10 @@
 import express, { NextFunction, Request, Response } from "express";
-import { OrderController } from "../controllers";
+import { OrderController,AuthController } from "../controllers";
 const router = express.Router();
 const orderController = new OrderController();
+const authController = new AuthController()
 
-router.get("/", async (req: Request, res: Response, next: NextFunction) => {
+router.get("/",authController.verificaTokenUsuario, async (req: Request, res: Response, next: NextFunction) => {
   try {
     orderController.getOrders(req, res, next); 
   } catch (error) {
@@ -12,7 +13,7 @@ router.get("/", async (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
-router.get("/:idPedido", async (req: Request, res: Response, next: NextFunction) => {
+router.get("/:idPedido",authController.verificaTokenUsuario, async (req: Request, res: Response, next: NextFunction) => {
     try {
       orderController.getOrder(req, res, next); 
     } catch (error) {
@@ -22,7 +23,7 @@ router.get("/:idPedido", async (req: Request, res: Response, next: NextFunction)
   }
 );
 
-router.post("/", async (req: Request, res: Response, next: NextFunction) => {
+router.post("/",authController.verificaTokenUsuario, async (req: Request, res: Response, next: NextFunction) => {
   try {
     orderController.addOrder(req, res, next);
   } catch (error) {
@@ -30,7 +31,7 @@ router.post("/", async (req: Request, res: Response, next: NextFunction) => {
     res.status(500).send("Erro interno do servidor");
   }
 });
-router.delete("/:idPedido", async (req: Request, res: Response, next: NextFunction) => {
+router.delete("/:idPedido",authController.verificaTokenUsuario, async (req: Request, res: Response, next: NextFunction) => {
   try {
     orderController.deleteOrder(req, res, next);
   } catch (error) {

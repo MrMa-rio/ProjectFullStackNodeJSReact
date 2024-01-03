@@ -311,7 +311,7 @@ export default class DB implements DBGeneric {
           if (error) {
             reject(error);
           } else {
-            console.log(results);
+            console.log(results[0]);
             resolve(results[0]);
           }
         });

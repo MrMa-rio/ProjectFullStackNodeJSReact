@@ -6,6 +6,11 @@
     "paths": {
         "/clientes": {
             "get": {
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ],
                 "summary": "Busca todos os clientes",
                 "description": "Rota responsavel por retornar todos os clientes",
                 "tags": [
@@ -33,6 +38,11 @@
                 }
             },
             "post": {
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ],
                 "summary": "Adiciona um novo Cliente",
                 "description": "Rota responsavel por adicionar um novo cliente",
                 "tags": [
@@ -69,6 +79,11 @@
                 }
             },
             "patch": {
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ],
                 "summary": "Rota responsavel por atualizar um cliente",
                 "description": "Rota responsavel por atualizar um cliente ja existente",
                 "tags": [
@@ -108,6 +123,11 @@
         "/clientes/{idCliente}": {
             
             "get": {
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ],
                 "parameters": [
                     {
                       "in": "path",
@@ -148,6 +168,11 @@
         },
         "/pedidos": {
             "get": {
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ],
                 "summary": "Busca todos os pedidos",
                 "description": "Rota responsavel por retornar todos os pedidos",
                 "tags": [
@@ -175,6 +200,11 @@
                 }
             },
             "delete": {
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ],
                 "parameters": [
                     {
                       "in": "path",
@@ -193,6 +223,11 @@
                 ]
             },
             "post": {
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ],
                 "summary": "Adiciona um novo Pedido",
                 "description": "Rota responsavel por adicionar um novo pedido",
                 "tags": [
@@ -229,6 +264,11 @@
                 }
             },
             "patch": {
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ],
                 "summary": "Rota responsavel por atualizar um pedido",
                 "description": "Rota responsavel por atualizar um pedido ja existente",
                 "tags": [
@@ -267,6 +307,11 @@
         },
         "/pedidos/{idPedido}": {
             "get": {
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ],
                 "parameters": [
                     {
                       "in": "path",
@@ -307,6 +352,11 @@
         },
         "/itemspedidos/{idPedido}": {
             "get": {
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ],
                 "parameters": [
                     {
                       "in": "path",
@@ -347,6 +397,11 @@
         },
         "/itemspedidos": {
             "post": {
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ],
                 "summary":"Adiciona um novo item para um pedido",
                 "description":"Rota responsavel por adicionar itens em um pedido",
                 "tags": [
@@ -494,6 +549,16 @@
                     }
                 }
             }
+        },
+        "securitySchemes":{
+            "bearerAuth":{
+                "type": "http",
+                "scheme": "Bearer",
+                "bearerFormat": "JWT"
+            }
         }
+    },
+    "security": {
+        "bearerAuth": ["bearerAuth"]
     }
 }

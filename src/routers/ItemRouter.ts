@@ -1,9 +1,10 @@
 import express, { NextFunction, Request, Response } from "express";
-import { ItemController } from "../controllers";
+import { AuthController, ItemController } from "../controllers";
 const router = express.Router();
 const itemController = new ItemController();
+const authController = new AuthController()
 
-router.get("/:idItem", async (req: Request, res: Response, next: NextFunction) => {
+router.get("/:idItem",authController.verificaTokenUsuario, async (req: Request, res: Response, next: NextFunction) => {
   try {
     itemController.getItem(req, res, next);
   } catch (error) {
@@ -12,7 +13,7 @@ router.get("/:idItem", async (req: Request, res: Response, next: NextFunction) =
   }
 });
 
-router.get("/", async (req: Request, res: Response, next: NextFunction) => {
+router.get("/",authController.verificaTokenUsuario, async (req: Request, res: Response, next: NextFunction) => {
   try {
     itemController.getItems(req, res, next);
   } catch (error) {

@@ -1,9 +1,10 @@
 import express, { NextFunction, Request, Response } from "express";
-import { ClientController } from "../controllers";
+import { ClientController,AuthController } from "../controllers";
 const router = express.Router();
 const clientController = new ClientController();
+const authController = new AuthController()
 
-router.get("/", async (req: Request, res: Response, next: NextFunction) => {
+router.get("/", authController.verificaTokenUsuario  ,async (req: Request, res: Response, next: NextFunction) => {
   try {
     clientController.getClients(req, res, next); 
   } catch (error) {
@@ -12,7 +13,7 @@ router.get("/", async (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
-router.get("/:idCliente", async (req: Request, res: Response, next: NextFunction) => {
+router.get("/:idCliente",authController.verificaTokenUsuario, async (req: Request, res: Response, next: NextFunction) => {
     try {
       clientController.getClient(req, res, next); 
     } catch (error) {
@@ -22,7 +23,7 @@ router.get("/:idCliente", async (req: Request, res: Response, next: NextFunction
   }
 );
 
-router.post("/", async (req: Request, res: Response, next: NextFunction) => {
+router.post("/",authController.verificaTokenUsuario, async (req: Request, res: Response, next: NextFunction) => {
   try {
     clientController.addClient(req, res, next);
   } catch (error) {
@@ -30,7 +31,7 @@ router.post("/", async (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
-router.patch("/", async (req: Request, res: Response, next: NextFunction) => {
+router.patch("/",authController.verificaTokenUsuario, async (req: Request, res: Response, next: NextFunction) => {
   try {
     clientController.updateClient(req, res, next);
   } catch (error) {
