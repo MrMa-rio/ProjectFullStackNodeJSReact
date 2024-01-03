@@ -12,6 +12,7 @@ import Client from "../models/Client";
 import Order from "../models/Order";
 import ItemOrder from "../models/ItemOrder";
 import Item from "../models/Item";
+import { StatusCodeUsuario } from "src/interfaces/StatusProps/StatusProps";
 
 export default class DB implements DBGeneric {
   // Clientes
@@ -302,29 +303,27 @@ export default class DB implements DBGeneric {
       });
     });
   }
-  async CheckUser(nome: string, senha: string) {
+  async CheckUsuario(nome: string, senha: string) {
     try {
       const sql = `call db_restaurant.ChecaUsuarioSenha('${nome}', '${senha}');`;
-      const resultados: number = await new Promise((resolve, reject) => {
-        connection.query(sql, (error: QueryError, results: number) => {
+      const resultados: StatusCodeUsuario[] = await new Promise((resolve, reject) => {
+        connection.query(sql, (error: QueryError, results: any) => {
           if (error) {
             reject(error);
           } else {
             console.log(results);
-            resolve(results);
+            resolve(results[0]);
           }
         });
       });
-      return resultados;
+      return resultados[0];
     } catch (error) {
       console.error(error)
     }
   }
 
-  async dataUser(nome: string, senha: string) {
+  async getUsuario(nome: string, senha: string) {
     try {
-      const statusCode = await this.CheckUser(nome, senha);
-      if(statusCode == 200){
         const sql = `call db_restaurant.getUsuario('${nome}', '${senha}');`
         const resultados: UsuarioProps[] = await new Promise((resolve, reject) => {
           connection.query(sql, (error: QueryError, results: any) => {
@@ -338,12 +337,8 @@ export default class DB implements DBGeneric {
           });
         });
         return resultados[0];
-      }
-      else{
-        return statusCode
-      }
     } catch (error) {
-      
+      console.error(error)
     }
   }
 }

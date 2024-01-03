@@ -1,13 +1,9 @@
 import express, { NextFunction, Request, Response } from "express";
+import { AuthController } from "../controllers/AuthController";
 const router = express.Router();
-
-router.get("/", async (req: Request, res: Response, next: NextFunction) => {
-  try {
-    res.json("Havera algo aqui")
-  } catch (error) {
-    console.error("Erro na consulta ao banco de dados:", error);
-    res.status(500).send("Erro interno do servidor");
-  }
-});
+const authController = new AuthController()
+router.post("/", async (req: Request, res: Response, next:NextFunction) => {
+    await authController.registraTokenUsuario(req, res, next)
+} );
 
 export default router;

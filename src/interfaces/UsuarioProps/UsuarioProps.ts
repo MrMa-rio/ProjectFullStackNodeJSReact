@@ -5,3 +5,4 @@ export interface UsuarioProps {
   imagem_64: string;
   senha: string;
 }
+
