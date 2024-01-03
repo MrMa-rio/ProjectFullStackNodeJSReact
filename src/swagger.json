@@ -4,6 +4,45 @@
     "description": " Fornecimento de dados referente a administracao de um mini restaurante ",
     "version": "1.0.0",
     "paths": {
+        "/auth/register":{
+            "post":{
+                "summary":"Gera um token para um cliente ",
+                "description": "Rota responsavel por lidar com a geração de token",
+                "tags":[
+                    "Autenticação"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#components/schemas/authRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200":{
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/authResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/status"
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+        },
         "/clientes": {
             "get": {
                 "security": [
@@ -441,6 +480,28 @@
     },
     "components": {
         "schemas": {
+            "authRequest": {
+                "type": "object",
+                "properties": {
+                    "nome": {
+                        "type": "string"
+                    },
+                    "senha": {
+                        "type": "string"
+                    }
+                }
+            },
+            "authResponse": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "number"
+                    },
+                    "token": {
+                        "type": "string"
+                    }
+                }
+            },
             "addCliente": {
                 "type": "object",
                 "properties": {

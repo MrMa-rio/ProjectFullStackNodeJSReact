@@ -29,6 +29,11 @@ export class AuthController {
         });
         return res.json({ status: 200, token: token });
       }
+      else {
+        return res
+            .status(401)
+            .json({ status: 401, message: "Login e/ou senha invalido" });
+      }
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Falha na operacao" }).end();
