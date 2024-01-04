@@ -4,7 +4,7 @@ const router = express.Router();
 const itemController = new ItemController();
 const authController = new AuthController()
 
-router.get("/:idItem",authController.verificaTokenUsuario, async (req: Request, res: Response, next: NextFunction) => {
+router.get("/:idItem",authController.verificaToken, async (req: Request, res: Response, next: NextFunction) => {
   try {
     itemController.getItem(req, res, next);
   } catch (error) {
@@ -13,7 +13,7 @@ router.get("/:idItem",authController.verificaTokenUsuario, async (req: Request, 
   }
 });
 
-router.get("/",authController.verificaTokenUsuario, async (req: Request, res: Response, next: NextFunction) => {
+router.get("/",authController.verificaToken, async (req: Request, res: Response, next: NextFunction) => {
   try {
     itemController.getItems(req, res, next);
   } catch (error) {

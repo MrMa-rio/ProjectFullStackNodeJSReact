@@ -1,6 +1,6 @@
 import { UsuarioRepository } from "../repositories/UsuarioRepository"
 
-export default class UsuarioServices {
+export class UsuarioServices {
 
     private usuarioRepository: UsuarioRepository
 

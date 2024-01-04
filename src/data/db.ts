@@ -12,7 +12,7 @@ import Cliente from "../models/Cliente";
 import Order from "../models/Order";
 import ItemOrder from "../models/ItemOrder";
 import Item from "../models/Item";
-import { StatusCodeUsuario } from "src/interfaces/StatusProps/StatusProps";
+import { StatusCodeCliente, StatusCodeUsuario } from "src/interfaces/StatusProps/StatusProps";
 
 export default class DB implements DBGeneric {
   // Clientes
@@ -321,11 +321,48 @@ export default class DB implements DBGeneric {
       console.error(error)
     }
   }
+  async CheckCliente(nome: string, senha: string) {
+    try {
+      const sql = `call db_restaurant.ChecaClienteSenha('${nome}', '${senha}');`;
+      const resultados: StatusCodeCliente[] = await new Promise((resolve, reject) => {
+        connection.query(sql, (error: QueryError, results: any) => {
+          if (error) {
+            reject(error);
+          } else {
+            console.log(results[0]);
+            resolve(results[0]);
+          }
+        });
+      });
+      return resultados[0];
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
-  async getUsuario(nome: string, senha: string) {
+  async getUsuarioLogin(nome: string, senha: string) {
     try {
         const sql = `call db_restaurant.getUsuario('${nome}', '${senha}');`
         const resultados: UsuarioProps[] = await new Promise((resolve, reject) => {
+          connection.query(sql, (error: QueryError, results: any) => {
+            if (error || !results[0]) {
+              reject(error);
+              throw "Falha na operacao";
+            } else {
+              console.log(results);
+              resolve(results);
+            }
+          });
+        });
+        return resultados[0];
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  async getClienteLogin(nome: string, senha: string) {
+    try {
+        const sql = `call db_restaurant.getCliente('${nome}', '${senha}');`
+        const resultados: ClienteProps[] = await new Promise((resolve, reject) => {
           connection.query(sql, (error: QueryError, results: any) => {
             if (error || !results[0]) {
               reject(error);

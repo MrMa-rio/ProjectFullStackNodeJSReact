@@ -4,7 +4,7 @@ const router = express.Router();
 const itemOrderController = new ItemOrderController();
 const authController = new AuthController()
 
-router.post("/",authController.verificaTokenUsuario, async (req: Request, res: Response, next: NextFunction) => {
+router.post("/",authController.verificaToken, async (req: Request, res: Response, next: NextFunction) => {
   try {
     itemOrderController.addItemsOrder(req, res, next);
   } catch (error) {
@@ -13,7 +13,7 @@ router.post("/",authController.verificaTokenUsuario, async (req: Request, res: R
   }
 });
 
-router.get("/:fkPedido",authController.verificaTokenUsuario, async (req: Request, res: Response, next: NextFunction) => {
+router.get("/:fkPedido",authController.verificaToken, async (req: Request, res: Response, next: NextFunction) => {
     try {
       itemOrderController.getItemsOrder(req, res, next); //fazendo testes direto
     } catch (error) {

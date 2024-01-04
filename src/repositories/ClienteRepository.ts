@@ -9,6 +9,16 @@ export class ClienteRepository {
     this.DB = new DB();
   }
 
+  async CheckCliente(nome: string, senha: string) {
+    const response = await this.DB.CheckCliente(nome, senha);
+    if (!response) return null;
+    return response;
+  }
+
+  async getClienteLogin(nome: string, senha: string) {
+    return await this.DB.getClienteLogin(nome, senha);
+  }
+
   async getClientes() {
     const clientes = await this.DB.getClientes();
     if (!clientes) return [];
@@ -17,7 +27,7 @@ export class ClienteRepository {
 
   async getCliente(idCliente: number) {
     const cliente = await this.DB.getCliente(idCliente);
-    if(!cliente) return null
+    if (!cliente) return null;
     return new Cliente(cliente);
   }
 

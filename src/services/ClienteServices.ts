@@ -7,6 +7,16 @@ export class ClienteServices {
     this.clienteRepository = new ClienteRepository();
   }
 
+  async CheckCliente(nome: string, senha: string) {
+    const response = await this.clienteRepository.CheckCliente(nome, senha);
+    if (!response) return null;
+    return response;
+  }
+
+  async getClienteLogin(nome: string, senha: string) {
+    return await this.clienteRepository.getClienteLogin(nome, senha);
+  }
+
   async getCliente(idCliente: number) {
     const cliente = await this.clienteRepository.getCliente(idCliente);
     if (!cliente) return null;

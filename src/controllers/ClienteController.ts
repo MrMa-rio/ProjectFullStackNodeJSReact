@@ -1,5 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import { ClienteServices } from "../services";
+import { verify } from "jsonwebtoken";
+
+const secret_key = process.env.SECRET_KEY as string;
+
 
 export class ClienteController {
   private clienteServices: ClienteServices;
@@ -9,6 +13,9 @@ export class ClienteController {
   }
   async getClientes(req: Request, res: Response, next: NextFunction) {
     try {
+      const token = req.headers["authorization"] as string
+      const token_ = token.includes("Bearer") && token.substring(7, token.length) || token //Retira a assinatura Bearer do token
+      const isValid = verify(token_, secret_key)
       const response = await this.clienteServices.getClientes();
       return res.status(200).json(response);
     } catch (e) {

@@ -4,7 +4,7 @@ const router = express.Router();
 const orderController = new OrderController();
 const authController = new AuthController()
 
-router.get("/",authController.verificaTokenUsuario, async (req: Request, res: Response, next: NextFunction) => {
+router.get("/",authController.verificaToken, async (req: Request, res: Response, next: NextFunction) => {
   try {
     orderController.getOrders(req, res, next); 
   } catch (error) {
@@ -13,7 +13,7 @@ router.get("/",authController.verificaTokenUsuario, async (req: Request, res: Re
   }
 });
 
-router.get("/:idPedido",authController.verificaTokenUsuario, async (req: Request, res: Response, next: NextFunction) => {
+router.get("/:idPedido",authController.verificaToken, async (req: Request, res: Response, next: NextFunction) => {
     try {
       orderController.getOrder(req, res, next); 
     } catch (error) {
@@ -23,7 +23,7 @@ router.get("/:idPedido",authController.verificaTokenUsuario, async (req: Request
   }
 );
 
-router.post("/",authController.verificaTokenUsuario, async (req: Request, res: Response, next: NextFunction) => {
+router.post("/",authController.verificaToken, async (req: Request, res: Response, next: NextFunction) => {
   try {
     orderController.addOrder(req, res, next);
   } catch (error) {
@@ -31,7 +31,7 @@ router.post("/",authController.verificaTokenUsuario, async (req: Request, res: R
     res.status(500).send("Erro interno do servidor");
   }
 });
-router.delete("/:idPedido",authController.verificaTokenUsuario, async (req: Request, res: Response, next: NextFunction) => {
+router.delete("/:idPedido",authController.verificaToken, async (req: Request, res: Response, next: NextFunction) => {
   try {
     orderController.deleteOrder(req, res, next);
   } catch (error) {

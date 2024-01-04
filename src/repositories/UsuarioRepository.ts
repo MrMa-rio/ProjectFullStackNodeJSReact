@@ -15,6 +15,6 @@ export class UsuarioRepository {
     }
 
     async getUsuario(nome:string, senha:string){
-        return await this.DB.getUsuario(nome, senha)
+        return await this.DB.getUsuarioLogin(nome, senha)
     }
 }

@@ -4,7 +4,46 @@
     "description": " Fornecimento de dados referente a administracao de um mini restaurante ",
     "version": "1.0.0",
     "paths": {
-        "/auth/register":{
+        "/auth/cliente/register":{
+            "post":{
+                "summary":"Gera um token para um cliente ",
+                "description": "Rota responsavel por lidar com a geração de token",
+                "tags":[
+                    "Autenticação"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#components/schemas/authRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200":{
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/authResponse"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/status"
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+        },
+        "/auth/usuario/register":{
             "post":{
                 "summary":"Gera um token para um cliente ",
                 "description": "Rota responsavel por lidar com a geração de token",

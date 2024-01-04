@@ -5,13 +5,19 @@ const authController = new AuthController();
 router.post(
   "/verify",
   async (req: Request, res: Response, next: NextFunction) => {
-    await authController.verificaTokenUsuario(req, res, next);
+    await authController.verificaToken(req, res, next);
   }
 );
 router.post(
-  "/register",
+  "/usuario/register",
   async (req: Request, res: Response, next: NextFunction) => {
     await authController.registraTokenUsuario(req, res, next);
   }
 );
+router.post(
+    "/cliente/register",
+    async (req: Request, res: Response, next: NextFunction) => {
+      await authController.registraTokenCliente(req, res, next);
+    }
+  );
 export default router;
