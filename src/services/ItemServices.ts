@@ -8,7 +8,11 @@ export class ItemServices {
   }
 
   async getItem(idItem: number) {
-    return await this.itemRepository.getItem(idItem);
+    try {
+      return await this.itemRepository.getItem(idItem);
+    } catch (error) {
+      return null
+    }
   }
   async addItem(item: Omit<ItemProps, "idItem">) {
     return await this.itemRepository.addItem(item);

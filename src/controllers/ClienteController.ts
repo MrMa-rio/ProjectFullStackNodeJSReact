@@ -27,10 +27,10 @@ export class ClienteController {
     try {
       const cliente = req.params.idCliente;
       if (isNaN(Number(cliente)))
-        return res.status(400).json({ message: " Erro generico na operacao " }); //Caberia uma chamada no banco para trazer mensagens dinamica do mesmo.
+        return res.status(400).json({ message: " Erro Generico na Operação " }); //Caberia uma chamada no banco para trazer mensagens dinamica do mesmo.
       const response = await this.clienteServices.getCliente(Number(cliente));
       if (!response)
-        return res.status(400).json({ message: " Erro generico na operacao " }); 
+        return res.status(404).json({status:404, message: " Cliente não encontrado " }); 
       return res.status(200).json(response);
     } catch (e) {
       return next(e);
@@ -42,7 +42,7 @@ export class ClienteController {
       console.log(req.body);
       const response = await this.clienteServices.addCliente(req.body);
       if (!response)
-        return res.status(400).json({ message: " Erro generico na operacao " });
+        return res.status(400).json({ message: " Erro Generico na Operação " });
       return res.status(200).json(response);
     } catch (e) {
       return next(e);
@@ -54,7 +54,7 @@ export class ClienteController {
       console.log(req.body);
       const response = await this.clienteServices.updateCliente(req.body);
       if (!response)
-        return res.status(400).json({ message: " Erro generico na operacao " });
+        return res.status(400).json({ message: " Erro Generico na Operação " });
       return res.status(200).json(response);
     } catch (e) {
       return next(e);

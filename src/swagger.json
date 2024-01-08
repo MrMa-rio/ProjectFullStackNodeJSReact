@@ -515,6 +515,94 @@
                     }
                 }
             }
+        },
+        "/items/{idItem}": {
+            "get": {
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ],
+                "parameters": [
+                    {
+                      "in": "path",
+                      "name": "idItem",
+                      "required": true,
+                      "schema": {
+                        "type": "number"
+                      },
+                      "description": "Id do Item"
+                    }
+                  ],
+                "summary": "Busca por um unico Pedido",
+                "description": "Rota responsavel por retornar um unico item",
+                "tags": [
+                    "Item"
+                ],
+                "responses": {
+                    "200":{
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/item"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/status"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/items": {
+            "post": {
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ],
+                "summary":"Adiciona um novo item",
+                "description":"Rota responsavel por adicionar um item",
+                "tags": [
+                    "Item"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#components/schemas/addItem"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200":{
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/item"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/status"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -618,6 +706,37 @@
                 "preco_unitario": {
                     "type":"string"
                 }}
+            },
+            "item": {
+                "type":"object",
+                "properties":{
+                    "idItem": {
+                        "type":"number"
+                    },
+                    "nome": {
+                        "type":"string"
+                    },
+                    "preco_unitario": {
+                        "type":"string"
+                    },
+                    "imagem_64": {
+                        "type":"string"
+                    }
+                }
+            },
+            "addItem": {
+                "type":"object",
+                "properties":{
+                    "nome": {
+                        "type":"string"
+                    },
+                    "preco_unitario": {
+                        "type":"string"
+                    },
+                    "imagem_64": {
+                        "type":"string"
+                    }
+                }
             },
             "itemPedido": {
                 "type":"object",

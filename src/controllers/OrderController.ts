@@ -30,10 +30,10 @@ export class OrderController {
     try {
       const order = Number(req.params.idPedido);
       if (isNaN(order))
-        return res.status(400).json({ message: " Erro generico na operacao " }); //Caberia uma chamada no banco para trazer mensagens dinamica do mesmo.
+        return res.status(400).json({ message: " Pedido inválido " }); //Caberia uma chamada no banco para trazer mensagens dinamica do mesmo.
       const response = await this.orderServices.getOrder(order);
       if (!response)
-        return res.status(400).json({ status:400, message: " Erro generico na operacao " });
+        return res.status(404).json({ status:404, message: " Pedido não encontrado " });
       return res.status(200).json(response);
     } catch (e) {
       return next(e);
@@ -43,7 +43,7 @@ export class OrderController {
     try {
       const response = await this.orderServices.addOrder(req.body);
       if (!response)
-        return res.status(400).json({ message: " Erro generico na operacao " });
+        return res.status(400).json({ message: " Erro Generico na Operação " });
       return res.status(200).json(response);
     } catch (e) {
       return next(e);
@@ -54,9 +54,9 @@ export class OrderController {
     try {
       const order = Number(req.params.idPedido);
       if (isNaN(order))
-        return res.status(400).json({ message: " Erro generico na operacao " }); //Caberia uma chamada no banco para trazer mensagens dinamica do mesmo.
+        return res.status(400).json({ message: " Erro Generico na Operação " }); //Caberia uma chamada no banco para trazer mensagens dinamica do mesmo.
       const response = await this.orderServices.deleteOrder(order);
-      return res.status(response.status).json(response);
+      return res.status(response.status).json({status:200, message: "Excluido com sucesso"});
     } catch (e) {
       return next(e);
     }

@@ -9,14 +9,14 @@ export class ItemRepository {
     this.DB = new DB();
   }
 
-  async addItem(order: Omit<ItemProps, "idItem">) {
-    const addItem = await this.DB.addItem(order);
+  async addItem(item: Omit<ItemProps, "idItem">) {
+    const addItem = await this.DB.addItem(item);
     if (!addItem) return null;
-    return new Item(addItem);
+    return new Item(addItem).object;
   }
   async getItem(idItem: number) {
     const item = await this.DB.getItem(idItem);
-    if (!item) return {};
+    if (!item || item === null) return null;
     return new Item(item);
   }
   async getItems() {

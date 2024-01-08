@@ -29,7 +29,7 @@ export class AuthController {
         }
         const token = sign(validaUsuario, secret_key, {
           algorithm: "HS512",
-          expiresIn: 800,
+          expiresIn: 800*10,
         });
         return res.json({ status: 200, token: token });
       }

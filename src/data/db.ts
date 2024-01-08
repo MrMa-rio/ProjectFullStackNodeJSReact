@@ -159,7 +159,7 @@ export default class DB implements DBGeneric {
           if (error) {
             reject(error);
           } else {
-            console.log(results);
+            //console.log(results);
             resolve(results);
           }
         });
@@ -180,7 +180,7 @@ export default class DB implements DBGeneric {
             if (error) {
               reject(error);
             } else {
-              console.log(results);
+              //console.log(results);
               resolve(results);
             }
           });
@@ -213,8 +213,7 @@ export default class DB implements DBGeneric {
     }
   }
 
-  // Itens
-
+// Itens
   async getItem(idItem: number) {
     try {
       const sql = `SELECT * FROM db_restaurant.tb_item where idItem = ${idItem};`;
@@ -222,16 +221,16 @@ export default class DB implements DBGeneric {
         connection.query(sql, (error: QueryError, results: any) => {
           if (error || !results[0]) {
             reject(error);
-            throw "Falha na operacao";
+            //throw "Falha na operacao";
           } else {
-            console.log(results);
+            //console.log(results);
             resolve(results);
           }
         });
       });
       return resultados[0];
     } catch (error) {
-      console.log(error);
+      return null
     }
   }
   async getItems() {
@@ -242,7 +241,7 @@ export default class DB implements DBGeneric {
           if (error) {
             reject(error);
           } else {
-            console.log(results);
+            //console.log(results);
             resolve(results);
           }
         });
@@ -255,7 +254,7 @@ export default class DB implements DBGeneric {
 
   async addItem(item: Omit<ItemProps, "idItem">) {
     try {
-      const sql = `call db_restaurant.addItem('${item.nome}', ${item.preco_unitario});`;
+      const sql = `call db_restaurant.addItem('${item.nome}', '${item.preco_unitario}', '${item.imagem_64}');`;
       const resultados: ItemProps[] = await new Promise((resolve, reject) => {
         connection.query(sql, (error, results: any) => {
           if (error) {
@@ -266,9 +265,9 @@ export default class DB implements DBGeneric {
           }
         });
       });
-      return new Item(resultados[0]);
+      return resultados[0];
     } catch (error) {
-      console.log(error);
+      //console.log(results).log(error);
     }
   }
 
@@ -286,7 +285,7 @@ export default class DB implements DBGeneric {
       });
       return new Item(resultados[0]);
     } catch (error) {
-      console.log(error);
+      //console.log(results).log(error);
     }
   }
 
@@ -297,7 +296,7 @@ export default class DB implements DBGeneric {
         if (error) {
           reject(error);
         } else {
-          console.log(results);
+          //console.log(results).log(results);
           resolve(results);
         }
       });
@@ -311,14 +310,14 @@ export default class DB implements DBGeneric {
           if (error) {
             reject(error);
           } else {
-            console.log(results[0]);
+            //console.log(results).log(results[0]);
             resolve(results[0]);
           }
         });
       });
       return resultados[0];
     } catch (error) {
-      console.error(error)
+      //console.log(results).error(error)
     }
   }
   async CheckCliente(nome: string, senha: string) {
@@ -329,14 +328,14 @@ export default class DB implements DBGeneric {
           if (error) {
             reject(error);
           } else {
-            console.log(results[0]);
+            //console.log(results).log(results[0]);
             resolve(results[0]);
           }
         });
       });
       return resultados[0];
     } catch (error) {
-      console.error(error)
+      //console.log(results).error(error)
     }
   }
 
@@ -347,16 +346,16 @@ export default class DB implements DBGeneric {
           connection.query(sql, (error: QueryError, results: any) => {
             if (error || !results[0]) {
               reject(error);
-              throw "Falha na operacao";
+              //throw "Falha na operacao";
             } else {
-              console.log(results);
+              //console.log(results).log(results);
               resolve(results);
             }
           });
         });
         return resultados[0];
     } catch (error) {
-      console.error(error)
+      //console.log(results).error(error)
     }
   }
   async getClienteLogin(nome: string, senha: string) {
@@ -366,16 +365,16 @@ export default class DB implements DBGeneric {
           connection.query(sql, (error: QueryError, results: any) => {
             if (error || !results[0]) {
               reject(error);
-              throw "Falha na operacao";
+              //throw "Falha na operacao";
             } else {
-              console.log(results);
+              //console.log(results).log(results);
               resolve(results);
             }
           });
         });
         return resultados[0];
     } catch (error) {
-      console.error(error)
+      //console.log(results).error(error)
     }
   }
 }
