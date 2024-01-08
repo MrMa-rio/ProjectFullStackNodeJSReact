@@ -534,7 +534,7 @@
                       "description": "Id do Item"
                     }
                   ],
-                "summary": "Busca por um unico Pedido",
+                "summary": "Busca por um unico Item",
                 "description": "Rota responsavel por retornar um unico item",
                 "tags": [
                     "Item"
@@ -562,6 +562,38 @@
             }
         },
         "/items": {
+            "get": {
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ],
+                "summary": "Busca por todos os itens",
+                "description": "Rota responsavel por retornar todos os itens",
+                "tags": [
+                    "Item"
+                ],
+                "responses": {
+                    "200":{
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/item"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/status"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             "post": {
                 "security": [
                     {
