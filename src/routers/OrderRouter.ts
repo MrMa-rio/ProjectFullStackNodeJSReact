@@ -34,6 +34,7 @@ router.post("/",authController.verificaToken, async (req: Request, res: Response
 router.delete("/:idPedido",authController.verificaToken, async (req: Request, res: Response, next: NextFunction) => {
   try {
     orderController.deleteOrder(req, res, next);
+    res.status(200).status(200).json({status:200, message:"Deletado com sucesso"});
   } catch (error) {
     console.error("Erro na consulta ao banco de dados:", error);
     res.status(500).send("Erro interno do servidor");

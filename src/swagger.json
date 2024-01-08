@@ -277,29 +277,6 @@
                     }
                 }
             },
-            "delete": {
-                "security": [
-                    {
-                       "bearerAuth": []
-                    }
-                 ],
-                "parameters": [
-                    {
-                      "in": "path",
-                      "name": "idPedido",
-                      "required": true,
-                      "schema": {
-                        "type": "number"
-                      },
-                      "description": "Id do Pedido"
-                    }
-                ],
-                "summary": "Exclui um Pedido",
-                "description": "Rota responsavel por deletar um unico pedido",
-                "tags": [
-                    "Pedido"
-                ]
-            },
             "post": {
                 "security": [
                     {
@@ -425,6 +402,41 @@
                             }
                         }
                     }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ],
+                "parameters": [
+                    {
+                      "in": "path",
+                      "name": "idPedido",
+                      "required": true,
+                      "schema": {
+                        "type": "number"
+                      },
+                      "description": "Id do Pedido"
+                    }
+                ],
+                "summary": "Exclui um Pedido",
+                "description": "Rota responsavel por deletar um unico pedido",
+                "tags": [
+                    "Pedido"
+                ],
+                "responses": {
+                    "Response":{
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/status"
+                                }
+                            }
+                        }
+                    }
+                    
                 }
             }
         },
@@ -559,6 +571,41 @@
                         }
                     }
                 }
+            },
+            "delete": {
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ],
+                "parameters": [
+                    {
+                      "in": "path",
+                      "name": "idItem",
+                      "required": true,
+                      "schema": {
+                        "type": "number"
+                      },
+                      "description": "Id do Item"
+                    }
+                ],
+                "summary": "Exclui um Item",
+                "description": "Rota responsavel por deletar um unico item",
+                "tags": [
+                    "Item"
+                ],
+                "responses": {
+                    "Response":{
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/status"
+                                }
+                            }
+                        }
+                    }
+                    
+                }
             }
         },
         "/items": {
@@ -634,8 +681,50 @@
                         }
                     }
                 }
+            },
+            "patch": {
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ],
+                "summary": "Rota responsavel por atualizar um item",
+                "description": "Rota responsavel por atualizar um item ja existente",
+                "tags": [
+                    "Item"
+                ], 
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#components/schemas/item"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200":{
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/item"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/status"
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
+        
     },
     "components": {
         "schemas": {
