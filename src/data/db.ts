@@ -302,9 +302,9 @@ export default class DB implements DBGeneric {
       });
     });
   }
-  async CheckUsuario(nome: string, senha: string) {
+  async CheckUsuario(email: string, senha: string) {
     try {
-      const sql = `call db_restaurant.ChecaUsuarioSenha('${nome}', '${senha}');`;
+      const sql = `call db_restaurant.ChecaUsuarioSenha('${email}', '${senha}');`;
       const resultados: StatusCodeUsuario[] = await new Promise((resolve, reject) => {
         connection.query(sql, (error: QueryError, results: any) => {
           if (error) {
@@ -320,9 +320,9 @@ export default class DB implements DBGeneric {
       //console.log(results).error(error)
     }
   }
-  async CheckCliente(nome: string, senha: string) {
+  async CheckCliente(email: string, senha: string) {
     try {
-      const sql = `call db_restaurant.ChecaClienteSenha('${nome}', '${senha}');`;
+      const sql = `call db_restaurant.ChecaClienteSenha('${email}', '${senha}');`;
       const resultados: StatusCodeCliente[] = await new Promise((resolve, reject) => {
         connection.query(sql, (error: QueryError, results: any) => {
           if (error) {
@@ -358,9 +358,9 @@ export default class DB implements DBGeneric {
       //console.log(results).error(error)
     }
   }
-  async getClienteLogin(nome: string, senha: string) {
+  async getClienteLogin(email: string, senha: string) {
     try {
-        const sql = `call db_restaurant.getCliente('${nome}', '${senha}');`
+        const sql = `call db_restaurant.getCliente('${senha}', '${senha}');`
         const resultados: ClienteProps[] = await new Promise((resolve, reject) => {
           connection.query(sql, (error: QueryError, results: any) => {
             if (error || !results[0]) {

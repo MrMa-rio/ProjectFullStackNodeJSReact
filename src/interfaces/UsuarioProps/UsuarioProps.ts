@@ -6,5 +6,6 @@ export interface UsuarioProps {
   senha: string;
   data_nascimento: string;
   nivel_acesso: number;
+  email: string;
 }
 

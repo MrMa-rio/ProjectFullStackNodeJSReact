@@ -15,8 +15,8 @@ export class ClienteRepository {
     return response;
   }
 
-  async getClienteLogin(nome: string, senha: string) {
-    return await this.DB.getClienteLogin(nome, senha);
+  async getClienteLogin(email: string, senha: string) {
+    return await this.DB.getClienteLogin(email, senha);
   }
 
   async getClientes() {

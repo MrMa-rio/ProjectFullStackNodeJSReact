@@ -8,8 +8,8 @@ export class UsuarioServices {
         this.usuarioRepository = new UsuarioRepository()
     }
 
-    async CheckUsuario(nome:string, senha:string){
-        const response = await this.usuarioRepository.CheckUsuario(nome, senha)
+    async CheckUsuario(email:string, senha:string){
+        const response = await this.usuarioRepository.CheckUsuario(email, senha)
         if(!response) return null
         return response
     }

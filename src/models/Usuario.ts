@@ -8,6 +8,7 @@ export default class Usuario {
   senha: string;
   data_nascimento: string;
   nivel_acesso: number;
+  email: string;
 
   constructor(usuario: UsuarioProps) {
     this.idUsuario = usuario.idUsuario;
@@ -17,6 +18,7 @@ export default class Usuario {
     this.senha = usuario.senha;
     this.data_nascimento = usuario.data_nascimento;
     this.nivel_acesso = usuario.nivel_acesso;
+    this.email = usuario.email;
   }
 
   get object(): UsuarioProps {
@@ -27,7 +29,8 @@ export default class Usuario {
       imagem_64: this.imagem_64,
       senha: this.senha,
       data_nascimento: this.data_nascimento,
-      nivel_acesso: this.nivel_acesso
+      nivel_acesso: this.nivel_acesso,
+      email: this.email
     };
   }
 }

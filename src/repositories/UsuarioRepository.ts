@@ -8,13 +8,13 @@ export class UsuarioRepository {
         this.DB = new DB()
     }
 
-    async CheckUsuario(nome:string, senha:string){
-        const response = await this.DB.CheckUsuario(nome, senha)
+    async CheckUsuario(email:string, senha:string){
+        const response = await this.DB.CheckUsuario(email, senha)
         if(!response) return null
         return response
     }
 
-    async getUsuario(nome:string, senha:string){
-        return await this.DB.getUsuarioLogin(nome, senha)
+    async getUsuario(email:string, senha:string){
+        return await this.DB.getUsuarioLogin(email, senha)
     }
 }

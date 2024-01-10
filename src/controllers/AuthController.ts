@@ -16,9 +16,9 @@ export class AuthController {
   }
   async registraTokenUsuario(req: Request, res: Response, next: NextFunction) {
     try {
-      const { nome, senha } = req.body;
+      const { email, senha } = req.body;
       const validaUsuario = await this.usuarioServices.CheckUsuario(
-        nome,
+        email,
         senha
       );
       if (validaUsuario) {
@@ -110,9 +110,9 @@ export class AuthController {
 
   async registraTokenCliente(req: Request, res: Response, next: NextFunction) {
     try {
-      const { nome, senha } = req.body;
+      const { email, senha } = req.body;
       const validaCliente = await this.clienteServices.CheckCliente(
-        nome,
+        email,
         senha
       );
       if (validaCliente) {

@@ -8,6 +8,7 @@ export default class Cliente {
   senha: string;
   data_nascimento: string;
   nivel_acesso: number;
+  email: string;
 
   constructor(cliente: ClienteProps) {
     this.idCliente = cliente.idCliente;
@@ -17,6 +18,8 @@ export default class Cliente {
     this.senha = cliente.senha;
     this.data_nascimento = cliente.data_nascimento;
     this.nivel_acesso = cliente.nivel_acesso;
+
+    this.email = cliente.email;
   }
 
   get object(): ClienteProps {
@@ -27,7 +30,9 @@ export default class Cliente {
       imagem_64: this.imagem_64,
       senha: this.senha,
       data_nascimento: this.data_nascimento,
-      nivel_acesso: this.nivel_acesso
+
+      nivel_acesso: this.nivel_acesso,
+      email: this.email
     };
   }
 }
