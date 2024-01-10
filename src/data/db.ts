@@ -57,7 +57,7 @@ export default class DB implements DBGeneric {
 
   async addCliente(cliente: Omit<ClienteProps, "idCliente">) {
     try {
-      const sql = `call db_restaurant.addClient('${cliente.nome}', '${cliente.cpf}', '${cliente.imagem_64}', '${cliente.senha}', '${cliente.data_nascimento}');`;
+      const sql = `call db_restaurant.addClient('${cliente.nome}', '${cliente.cpf}', '${cliente.imagem_64}', '${cliente.senha}', '${cliente.data_nascimento}', ${cliente.email});`;
       const resultados: ClienteProps[] = await new Promise((resolve, reject) => {
         connection.query(sql, (error: QueryError, results: any) => {
           if (error) {
@@ -75,7 +75,7 @@ export default class DB implements DBGeneric {
 
   async updateCliente(cliente: ClienteProps) {
     try {
-      const sql = `call db_restaurant.updateClient(${cliente.idCliente}, '${cliente.nome}', '${cliente.cpf}', '${cliente.imagem_64}', '${cliente.senha}', '${cliente.data_nascimento}');`;
+      const sql = `call db_restaurant.updateClient(${cliente.idCliente}, '${cliente.nome}', '${cliente.cpf}', '${cliente.imagem_64}', '${cliente.senha}', '${cliente.data_nascimento}', ${cliente.email});`;
       const resultados: ClienteProps[] = await new Promise((resolve, reject) => {
         connection.query(sql, (error, results: any) => {
           if (error) {
