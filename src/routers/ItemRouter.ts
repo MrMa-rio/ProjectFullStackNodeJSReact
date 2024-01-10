@@ -16,7 +16,7 @@ router.post(
   }
 );
 
-router.get("/:idItem",authController.verificaToken, async (req: Request, res: Response, next: NextFunction) => {
+router.get("/:idItem", async (req: Request, res: Response, next: NextFunction) => {
   try {
     itemController.getItem(req, res, next);
   } catch (error) {
@@ -25,7 +25,7 @@ router.get("/:idItem",authController.verificaToken, async (req: Request, res: Re
   }
 });
 
-router.get("/",authController.verificaToken, async (req: Request, res: Response, next: NextFunction) => {
+router.get("/", async (req: Request, res: Response, next: NextFunction) => {
   try {
     itemController.getItems(req, res, next);
   } catch (error) {
