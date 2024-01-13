@@ -1,16 +1,16 @@
 import { QueryError } from "mysql2";
 import {
   ClienteProps,
-  OrderProps,
+  PedidoProps,
   DBGeneric,
-  ItemOrderProps,
+  ItemPedidoProps,
   ItemProps,
   UsuarioProps,
 } from "../interfaces";
 import { connection } from "./configConnection";
 import Cliente from "../models/Cliente";
-import Order from "../models/Order";
-import ItemOrder from "../models/ItemOrder";
+import Pedido from "../models/Pedido";
+import ItemPedido from "../models/ItemPedido";
 import Item from "../models/Item";
 import { StatusCodeCliente, StatusCodeUsuario } from "src/interfaces/StatusProps/StatusProps";
 
@@ -93,12 +93,12 @@ export default class DB implements DBGeneric {
 
   // Pedidos
 
-  async getOrders() {
+  async getPedidos() {
     try {
       const sql = `SELECT * FROM db_restaurant.tb_pedido;`;
-      const resultados: OrderProps[] | undefined = await new Promise(
+      const resultados: PedidoProps[] | undefined = await new Promise(
         (resolve, reject) => {
-          connection.query(sql, (error, results: Order[]) => {
+          connection.query(sql, (error, results: Pedido[]) => {
             if (error || !results[0]) {
               reject(error);
             } else {
@@ -113,11 +113,11 @@ export default class DB implements DBGeneric {
     }
   }
 
-  async getOrder(idPedido: number) {
+  async getPedido(idPedido: number) {
     try {
       const sql = `SELECT * FROM db_restaurant.tb_pedido where idPedido = ${idPedido} ;`;
-      const resultados: OrderProps[] = await new Promise((resolve, reject) => {
-        connection.query(sql, (error, results: Order[]) => {
+      const resultados: PedidoProps[] = await new Promise((resolve, reject) => {
+        connection.query(sql, (error, results: Pedido[]) => {
           if (error) {
             reject(error);
           } else {
@@ -132,11 +132,11 @@ export default class DB implements DBGeneric {
     }
   }
 
-  async addOrder(order: Omit<OrderProps, "idPedido">) {
+  async addPedido(Pedido: Omit<PedidoProps, "idPedido">) {
     try {
-      console.log(order);
-      const sql = `call db_restaurant.addOrder('${order.dataPedido}', '${order.fkCliente}', '${order.descricao}');`;
-      const resultados: OrderProps[] = await new Promise((resolve, reject) => {
+      console.log(Pedido);
+      const sql = `call db_restaurant.addPedido('${Pedido.dataPedido}', '${Pedido.fkCliente}', '${Pedido.descricao}');`;
+      const resultados: PedidoProps[] = await new Promise((resolve, reject) => {
         connection.query(sql, (error, results: any) => {
           if (error) {
             reject(error);
@@ -151,11 +151,11 @@ export default class DB implements DBGeneric {
     }
   }
 
-  async deleteOrder(idPedido: number) {
+  async deletePedido(idPedido: number) {
     try {
-      const sql = `call db_restaurant.deleteOrder(${idPedido});`;
+      const sql = `call db_restaurant.deletePedido(${idPedido});`;
       const resultados = await new Promise((resolve, reject) => {
-        connection.query(sql, (error, results: OrderProps) => {
+        connection.query(sql, (error, results: PedidoProps) => {
           if (error) {
             reject(error);
           } else {
@@ -171,12 +171,12 @@ export default class DB implements DBGeneric {
     }
   }
 
-  async getItemsOrder(idOrder: number) {
+  async getItemsPedido(idPedido: number) {
     try {
-      const sql = `SELECT * FROM db_restaurant.tb_itenspedido where fkPedido = ${idOrder};`;
-      const resultados: ItemOrderProps[] = await new Promise(
+      const sql = `SELECT * FROM db_restaurant.tb_itenspedido where fkPedido = ${idPedido};`;
+      const resultados: ItemPedidoProps[] = await new Promise(
         (resolve, reject) => {
-          connection.query(sql, (error, results: ItemOrder[]) => {
+          connection.query(sql, (error, results: ItemPedido[]) => {
             if (error) {
               reject(error);
             } else {
@@ -192,10 +192,10 @@ export default class DB implements DBGeneric {
     }
   }
 
-  async addItemsOrder(itemInOrder: Omit<ItemOrderProps, "id">) {
+  async addItemsPedido(itemInPedido: Omit<ItemPedidoProps, "id">) {
     try {
-      const sql = `call db_restaurant.addItemInOrder(${itemInOrder.fkPedido}, ${itemInOrder.fkItem}, ${itemInOrder.quantidade}, ${itemInOrder.preco_unitario});`;
-      const resultados: ItemOrderProps = await new Promise(
+      const sql = `call db_restaurant.addItemInPedido(${itemInPedido.fkPedido}, ${itemInPedido.fkItem}, ${itemInPedido.quantidade}, ${itemInPedido.preco_unitario});`;
+      const resultados: ItemPedidoProps = await new Promise(
         (resolve, reject) => {
           connection.query(sql, (error, results: any) => {
             if (error) {

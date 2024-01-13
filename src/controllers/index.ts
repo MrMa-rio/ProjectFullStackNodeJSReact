@@ -1,5 +1,5 @@
 export * from "./ClienteController";
-export * from "./OrderController";
+export * from "./PedidoController";
 export * from "./ItemController";
-export * from "./ItemOrderController"
+export * from "./ItemPedidoController"
 export * from "./AuthController"

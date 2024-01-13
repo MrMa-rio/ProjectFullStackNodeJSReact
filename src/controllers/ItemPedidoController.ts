@@ -1,18 +1,18 @@
 import { NextFunction, Request, Response } from "express";
-import { ItemOrderServices } from "../services";
+import { ItemPedidoServices } from "../services";
 
-export class ItemOrderController {
-  private itemOrderServices: ItemOrderServices;
+export class ItemPedidoController {
+  private itemPedidoServices: ItemPedidoServices;
   constructor() {
-    this.itemOrderServices = new ItemOrderServices();
+    this.itemPedidoServices = new ItemPedidoServices();
   }
 
-  async getItemsOrder(req: Request, res: Response, next: NextFunction) {
+  async getItemsPedido(req: Request, res: Response, next: NextFunction) {
     try {
       const fkPedido = Number(req.params.fkPedido);
       if (isNaN(fkPedido))
         return res.status(400).json({ status:400, message: " Erro Generico na Operação " });
-      const response = await this.itemOrderServices.getItemsOrder(fkPedido);
+      const response = await this.itemPedidoServices.getItemsPedido(fkPedido);
       if (!response)
         return res.status(400).json({ status:400, message: " Erro Generico na Operação " });
       return res.status(200).json(response);
@@ -21,13 +21,13 @@ export class ItemOrderController {
     }
   }
 
-  async addItemsOrder(req: Request, res: Response, next: NextFunction) {
+  async addItemsPedido(req: Request, res: Response, next: NextFunction) {
     try {
-      const itemsOrder = req.body;
-      if (Object.keys(itemsOrder).length == 0) {
+      const itemsPedido = req.body;
+      if (Object.keys(itemsPedido).length == 0) {
         return res.status(400).json({ message: " Erro Generico na Operação " });
       }
-      const response = await this.itemOrderServices.addItemsOrder(itemsOrder);
+      const response = await this.itemPedidoServices.addItemsPedido(itemsPedido);
       if (!response)
         return res.status(400).json({ message: " Erro Generico na Operação " });
       return res.status(200).json(response);

@@ -1,5 +1,5 @@
 export * from "./Cliente"
-export * from "./Order"
+export * from "./Pedido"
 export * from "./Item"
-export * from "./ItemOrder"
+export * from "./ItemPedido"
 

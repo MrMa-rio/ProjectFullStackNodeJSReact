@@ -1,19 +1,19 @@
 import { NextFunction, Request, Response } from "express";
-import { OrderServices } from "../services";
+import { PedidoServices } from "../services";
 
-export class OrderController {
-  private orderServices: OrderServices;
+export class PedidoController {
+  private PedidoServices: PedidoServices;
 
   constructor() {
-    this.orderServices = new OrderServices();
+    this.PedidoServices = new PedidoServices();
   }
-  async getOrders(req: Request, res: Response, next: NextFunction) {
+  async getPedidos(req: Request, res: Response, next: NextFunction) {
     try {
-      const response = await this.orderServices.getOrders();
+      const response = await this.PedidoServices.getPedidos();
       if (Object.keys(req.query).length !== 0) {
-        const teste = response.filter(order => {
-          if(order.fkCliente == Number(req.query.fkCliente)) {
-            return order
+        const teste = response.filter(Pedido => {
+          if(Pedido.fkCliente == Number(req.query.fkCliente)) {
+            return Pedido
           }
         })
         return res.status(200).json(teste);
@@ -26,12 +26,12 @@ export class OrderController {
     }
   }
 
-  async getOrder(req: Request, res: Response, next: NextFunction) {
+  async getPedido(req: Request, res: Response, next: NextFunction) {
     try {
-      const order = Number(req.params.idPedido);
-      if (isNaN(order))
+      const Pedido = Number(req.params.idPedido);
+      if (isNaN(Pedido))
         return res.status(400).json({ message: " Pedido inválido " }); //Caberia uma chamada no banco para trazer mensagens dinamica do mesmo.
-      const response = await this.orderServices.getOrder(order);
+      const response = await this.PedidoServices.getPedido(Pedido);
       if (!response)
         return res.status(404).json({ status:404, message: " Pedido não encontrado " });
       return res.status(200).json(response);
@@ -39,9 +39,9 @@ export class OrderController {
       return next(e);
     }
   }
-  async addOrder(req: Request, res: Response, next: NextFunction) {
+  async addPedido(req: Request, res: Response, next: NextFunction) {
     try {
-      const response = await this.orderServices.addOrder(req.body);
+      const response = await this.PedidoServices.addPedido(req.body);
       if (!response)
         return res.status(400).json({ message: " Erro Generico na Operação " });
       return res.status(200).json(response);
@@ -50,12 +50,12 @@ export class OrderController {
     }
   }
 
-  async deleteOrder(req: Request, res: Response, next: NextFunction) {
+  async deletePedido(req: Request, res: Response, next: NextFunction) {
     try {
-      const order = Number(req.params.idPedido);
-      if (isNaN(order))
+      const Pedido = Number(req.params.idPedido);
+      if (isNaN(Pedido))
         return res.status(400).json({ message: " Erro Generico na Operação " }); //Caberia uma chamada no banco para trazer mensagens dinamica do mesmo.
-      const response = await this.orderServices.deleteOrder(order);
+      const response = await this.PedidoServices.deletePedido(Pedido);
       return res.status(response.status).json({status:200, message: "Excluido com sucesso"});
     } catch (e) {
       return next(e);

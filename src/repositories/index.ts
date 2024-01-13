@@ -1,4 +1,4 @@
 export * from "./ClienteRepository"
-export * from "./OrderRepository"
+export * from "./PedidoRepository"
 export * from "./ItemRepository"
-export * from "./ItemOrderRepository"
+export * from "./ItemPedidoRepository"

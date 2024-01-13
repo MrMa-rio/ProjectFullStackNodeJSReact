@@ -1,5 +1,5 @@
-export * from "./ItemOrderServices";
+export * from "./ItemPedidoServices";
 export * from "./ClienteServices";
-export * from "./OrderServices";
+export * from "./PedidoServices";
 export * from "./ItemServices";
 export * from "./UsuarioServices";

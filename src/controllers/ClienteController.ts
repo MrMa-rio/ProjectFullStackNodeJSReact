@@ -37,6 +37,21 @@ export class ClienteController {
     }
   }
 
+  async getPedidoCliente(req: Request, res: Response, next: NextFunction) {
+    try {
+      const {idCliente, idPedido} = req.params;
+      if (isNaN(Number(idCliente)))
+        return res.status(400).json({ message: " Erro Generico na Operação " }); //Caberia uma chamada no banco para trazer mensagens dinamica do mesmo.
+      const response = await this.clienteServices.getPedidoCliente(Number(idCliente), Number(idPedido));
+      if (!response)
+        return res.status(404).json({status:404, message: " Pedido do Cliente não encontrado " }); 
+      return res.status(200).json(response);
+    } catch (e) {
+      return next(e);
+    }
+  }
+
+
   async addCliente(req: Request, res: Response, next: NextFunction) {
     try {
       console.log(req.body);

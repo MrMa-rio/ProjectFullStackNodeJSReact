@@ -18,9 +18,7 @@ router.get(
   }
 );
 
-router.get(
-  "/:idCliente",
-  authController.verificaToken,
+router.get("/:idCliente", authController.verificaToken,
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       clientController.getCliente(req, res, next);
@@ -30,6 +28,29 @@ router.get(
     }
   }
 );
+
+router.get("/:idCliente/pedidos", authController.verificaToken,
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      clientController.getPedidoCliente(req, res, next);
+    } catch (error) {
+      console.error("Erro na consulta ao banco de dados:", error);
+      res.status(500).send("Erro interno do servidor");
+    }
+  }
+);
+
+router.get("/:idCliente/pedidos/:idPedido", authController.verificaToken,
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      clientController.getPedidoCliente(req, res, next);
+    } catch (error) {
+      console.error("Erro na consulta ao banco de dados:", error);
+      res.status(500).send("Erro interno do servidor");
+    }
+  }
+);
+
 
 router.post(
   "/",

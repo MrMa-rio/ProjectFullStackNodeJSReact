@@ -6,10 +6,10 @@ import swaggerUi from "swagger-ui-express";
 import swaggerDocs from "./swagger.json";
 import {
   AuthRouter,
-  ClientRouter,
-  ItemOrderRouter,
+  ClienteRouter,
+  ItemPedidoRouter,
   ItemRouter,
-  OrderRouter,
+  PedidoRouter,
 } from "./routers";
 const app = express();
 
@@ -26,13 +26,13 @@ app.use(express.json());
 // })
 app.use("/documentation", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
-app.use("/clientes", ClientRouter);
+app.use("/clientes", ClienteRouter);
 
-app.use("/pedidos", OrderRouter);
+app.use("/pedidos", PedidoRouter);
 
 app.use("/items", ItemRouter);
 
-app.use("/itemspedidos", ItemOrderRouter);
+app.use("/itemspedidos", ItemPedidoRouter);
 
 app.use("/auth", AuthRouter);
 

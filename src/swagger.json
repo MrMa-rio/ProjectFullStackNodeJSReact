@@ -244,6 +244,61 @@
                 }
             }
         },
+        "/clientes/{idCliente}/pedidos/{idPedido}": {
+            
+            "get": {
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ],
+                "parameters": [
+                    {
+                      "in": "path",
+                      "name": "idCliente",
+                      "required": true,
+                      "schema": {
+                        "type": "number"
+                      },
+                      "description": "Id do Cliente"
+                    },
+                    {
+                        "in": "path",
+                        "name": "idPedido",
+                        "required": false,
+                        "schema": {
+                          "type": "number"
+                        },
+                        "description": "Id do Pedido"
+                      }
+                  ],
+                "summary": "Busca por Pedido(s) do Cliente",
+                "description": "Rota responsavel por retornar pedido(s) do cliente",
+                "tags": [
+                    "Cliente"
+                ],
+                "responses": {
+                    "200":{
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/pedido"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/status"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/pedidos": {
             "get": {
                 "security": [
@@ -731,7 +786,7 @@
             "authRequest": {
                 "type": "object",
                 "properties": {
-                    "nome": {
+                    "email": {
                         "type": "string"
                     },
                     "senha": {

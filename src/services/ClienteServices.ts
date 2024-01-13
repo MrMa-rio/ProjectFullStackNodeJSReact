@@ -1,10 +1,12 @@
-import { ClienteRepository } from "../repositories";
+import { ClienteRepository, PedidoRepository } from "../repositories";
 import { ClienteProps } from "../interfaces";
 
 export class ClienteServices {
   private clienteRepository: ClienteRepository;
+  private pedidoRepository: PedidoRepository;
   constructor() {
     this.clienteRepository = new ClienteRepository();
+    this.pedidoRepository = new PedidoRepository();
   }
 
   async CheckCliente(email: string, senha: string) {
@@ -22,6 +24,26 @@ export class ClienteServices {
     if (!cliente) return null;
     return cliente;
   }
+
+  async getPedidoCliente(idCliente: number, idPedido?: number) {
+    const pedidos = await this.pedidoRepository.getPedidos();
+    let pedidoCliente = null
+    if (!pedidos) return null;
+    if(!idPedido){
+      pedidoCliente = pedidos.filter(
+        (pedido) => pedido.fkCliente === idCliente
+      );
+    }
+    else{
+      pedidoCliente = pedidos.filter(
+        (pedido) => pedido.fkCliente === idCliente && pedido.idPedido === idPedido
+      );
+      return pedidoCliente[0];
+
+    }
+    return pedidoCliente;
+  }
+
   async getClientes() {
     return await this.clienteRepository.getClientes();
   }

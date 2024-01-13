@@ -1,8 +1,7 @@
-import ClientRouter from  "./ClientRouter"
-import OrderRouter from  "./OrderRouter"
+import ClienteRouter from  "./ClienteRouter"
+import PedidoRouter from  "./PedidoRouter"
 import AuthRouter from  "./AuthRouter"
 import ItemRouter from "./ItemRouter"
-import ItemOrderRouter from "./ItemOrderRouter"
+import ItemPedidoRouter from "./ItemPedidoRouter"
 
-
-export {AuthRouter, ClientRouter, OrderRouter, ItemRouter, ItemOrderRouter}
+export {AuthRouter, ClienteRouter, PedidoRouter, ItemRouter,ItemPedidoRouter}

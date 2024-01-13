@@ -1,4 +1,4 @@
-export interface ItemOrderProps {
+export interface ItemPedidoProps {
   id: number;
   fkPedido: number;
   fkItem: number;
