@@ -12,7 +12,10 @@ import Cliente from "../models/Cliente";
 import Pedido from "../models/Pedido";
 import ItemPedido from "../models/ItemPedido";
 import Item from "../models/Item";
-import { StatusCodeCliente, StatusCodeUsuario } from "src/interfaces/StatusProps/StatusProps";
+import {
+  StatusCodeCliente,
+  StatusCodeUsuario,
+} from "src/interfaces/StatusProps/StatusProps";
 
 export default class DB implements DBGeneric {
   // Clientes
@@ -40,15 +43,17 @@ export default class DB implements DBGeneric {
   async getCliente(idCliente: number) {
     try {
       const sql = `SELECT * FROM db_restaurant.tb_cliente where idCliente = ${idCliente} ;`;
-      const resultados: ClienteProps[] = await new Promise((resolve, reject) => {
-        connection.query(sql, (error, results: any) => {
-          if (error || !results[0]) {
-            reject(error);
-          } else {
-            resolve(results);
-          }
-        });
-      });
+      const resultados: ClienteProps[] = await new Promise(
+        (resolve, reject) => {
+          connection.query(sql, (error, results: any) => {
+            if (error || !results[0]) {
+              reject(error);
+            } else {
+              resolve(results);
+            }
+          });
+        }
+      );
       return resultados[0];
     } catch (error) {
       console.log(error);
@@ -58,15 +63,17 @@ export default class DB implements DBGeneric {
   async addCliente(cliente: Omit<ClienteProps, "idCliente">) {
     try {
       const sql = `call db_restaurant.addClient('${cliente.nome}', '${cliente.cpf}', '${cliente.imagem_64}', '${cliente.senha}', '${cliente.data_nascimento}', ${cliente.email});`;
-      const resultados: ClienteProps[] = await new Promise((resolve, reject) => {
-        connection.query(sql, (error: QueryError, results: any) => {
-          if (error) {
-            reject(error);
-          } else {
-            resolve(results[0]);
-          }
-        });
-      });
+      const resultados: ClienteProps[] = await new Promise(
+        (resolve, reject) => {
+          connection.query(sql, (error: QueryError, results: any) => {
+            if (error) {
+              reject(error);
+            } else {
+              resolve(results[0]);
+            }
+          });
+        }
+      );
       return new Cliente(resultados[0]);
     } catch (error) {
       console.log(error);
@@ -76,15 +83,17 @@ export default class DB implements DBGeneric {
   async updateCliente(cliente: ClienteProps) {
     try {
       const sql = `call db_restaurant.updateClient(${cliente.idCliente}, '${cliente.nome}', '${cliente.cpf}', '${cliente.imagem_64}', '${cliente.senha}', '${cliente.data_nascimento}', ${cliente.email});`;
-      const resultados: ClienteProps[] = await new Promise((resolve, reject) => {
-        connection.query(sql, (error, results: any) => {
-          if (error) {
-            reject(error);
-          } else {
-            resolve(results[0]);
-          }
-        });
-      });
+      const resultados: ClienteProps[] = await new Promise(
+        (resolve, reject) => {
+          connection.query(sql, (error, results: any) => {
+            if (error) {
+              reject(error);
+            } else {
+              resolve(results[0]);
+            }
+          });
+        }
+      );
       return new Cliente(resultados[0]);
     } catch (error) {
       console.log(error);
@@ -151,6 +160,25 @@ export default class DB implements DBGeneric {
     }
   }
 
+  async updateStatusPedido(idPedido: number, statusPedido: number) {
+    try {
+      const sql = `call db_restaurant.updateStatusPedido(${statusPedido}, ${idPedido});`;
+      const resultados = await new Promise((resolve, reject) => {
+        connection.query(sql, (error, result) => {
+          if (error) {
+            reject(error);
+          } else {
+            //console.log(results);
+            resolve(result);
+          }
+        });
+      });
+      return { status: 200, message: "Operacao realizada com sucesso!" };
+    } catch (error) {
+      return { status: 400, message: "Falha na operacao!" };
+    }
+  }
+
   async deletePedido(idPedido: number) {
     try {
       const sql = `call db_restaurant.deletePedido(${idPedido});`;
@@ -213,7 +241,7 @@ export default class DB implements DBGeneric {
     }
   }
 
-// Itens
+  // Itens
   async getItem(idItem: number) {
     try {
       const sql = `SELECT * FROM db_restaurant.tb_item where idItem = ${idItem};`;
@@ -230,7 +258,7 @@ export default class DB implements DBGeneric {
       });
       return resultados[0];
     } catch (error) {
-      return null
+      return null;
     }
   }
   async getItems() {
@@ -305,16 +333,18 @@ export default class DB implements DBGeneric {
   async CheckUsuario(email: string, senha: string) {
     try {
       const sql = `call db_restaurant.ChecaUsuarioSenha('${email}', '${senha}');`;
-      const resultados: StatusCodeUsuario[] = await new Promise((resolve, reject) => {
-        connection.query(sql, (error: QueryError, results: any) => {
-          if (error) {
-            reject(error);
-          } else {
-            //console.log(results).log(results[0]);
-            resolve(results[0]);
-          }
-        });
-      });
+      const resultados: StatusCodeUsuario[] = await new Promise(
+        (resolve, reject) => {
+          connection.query(sql, (error: QueryError, results: any) => {
+            if (error) {
+              reject(error);
+            } else {
+              //console.log(results).log(results[0]);
+              resolve(results[0]);
+            }
+          });
+        }
+      );
       return resultados[0];
     } catch (error) {
       //console.log(results).error(error)
@@ -323,16 +353,18 @@ export default class DB implements DBGeneric {
   async CheckCliente(email: string, senha: string) {
     try {
       const sql = `call db_restaurant.ChecaClienteSenha('${email}', '${senha}');`;
-      const resultados: StatusCodeCliente[] = await new Promise((resolve, reject) => {
-        connection.query(sql, (error: QueryError, results: any) => {
-          if (error) {
-            reject(error);
-          } else {
-            //console.log(results).log(results[0]);
-            resolve(results[0]);
-          }
-        });
-      });
+      const resultados: StatusCodeCliente[] = await new Promise(
+        (resolve, reject) => {
+          connection.query(sql, (error: QueryError, results: any) => {
+            if (error) {
+              reject(error);
+            } else {
+              //console.log(results).log(results[0]);
+              resolve(results[0]);
+            }
+          });
+        }
+      );
       return resultados[0];
     } catch (error) {
       //console.log(results).error(error)
@@ -341,8 +373,9 @@ export default class DB implements DBGeneric {
 
   async getUsuarioLogin(nome: string, senha: string) {
     try {
-        const sql = `call db_restaurant.getUsuario('${nome}', '${senha}');`
-        const resultados: UsuarioProps[] = await new Promise((resolve, reject) => {
+      const sql = `call db_restaurant.getUsuario('${nome}', '${senha}');`;
+      const resultados: UsuarioProps[] = await new Promise(
+        (resolve, reject) => {
           connection.query(sql, (error: QueryError, results: any) => {
             if (error || !results[0]) {
               reject(error);
@@ -352,16 +385,18 @@ export default class DB implements DBGeneric {
               resolve(results);
             }
           });
-        });
-        return resultados[0];
+        }
+      );
+      return resultados[0];
     } catch (error) {
       //console.log(results).error(error)
     }
   }
   async getClienteLogin(email: string, senha: string) {
     try {
-        const sql = `call db_restaurant.getCliente('${senha}', '${senha}');`
-        const resultados: ClienteProps[] = await new Promise((resolve, reject) => {
+      const sql = `call db_restaurant.getCliente('${senha}', '${senha}');`;
+      const resultados: ClienteProps[] = await new Promise(
+        (resolve, reject) => {
           connection.query(sql, (error: QueryError, results: any) => {
             if (error || !results[0]) {
               reject(error);
@@ -371,8 +406,9 @@ export default class DB implements DBGeneric {
               resolve(results);
             }
           });
-        });
-        return resultados[0];
+        }
+      );
+      return resultados[0];
     } catch (error) {
       //console.log(results).error(error)
     }

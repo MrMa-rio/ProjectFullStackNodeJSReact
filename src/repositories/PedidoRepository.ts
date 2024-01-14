@@ -23,7 +23,9 @@ export class PedidoRepository {
     if (!pedido) return null;
     return new Pedido(pedido);
   }
-  
+  async updateStatusPedido(idPedido: number, statusPedido: number) {
+    return await this.DB.updateStatusPedido(idPedido, statusPedido);
+  }
   async deletePedido(idPedido: number) {
     return await this.DB.deletePedido(idPedido);
   }

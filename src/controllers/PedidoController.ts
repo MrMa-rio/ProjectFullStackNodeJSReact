@@ -50,6 +50,19 @@ export class PedidoController {
     }
   }
 
+  async updateStatusPedido(req: Request, res: Response, next: NextFunction) {
+    try {
+      const {idPedido, statusPedido} = req.body
+      if (isNaN(Number(idPedido)) || isNaN(Number(statusPedido)))
+        return res.status(400).json({ message: " Erro Generico na Operação " }); //Caberia uma chamada no banco para trazer mensagens dinamica do mesmo.
+
+      const response = await this.PedidoServices.updateStatusPedido(Number(idPedido), Number(statusPedido));
+      return res.status(response.status).json({status:200, message: "Status do Pedido Atualizado!"});
+    } catch (e) {
+      return next(e);
+    }
+  }
+
   async deletePedido(req: Request, res: Response, next: NextFunction) {
     try {
       const Pedido = Number(req.params.idPedido);

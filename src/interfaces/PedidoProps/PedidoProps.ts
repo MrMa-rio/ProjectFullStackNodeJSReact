@@ -3,4 +3,5 @@ export interface PedidoProps {
     descricao: string
     fkCliente: number
     dataPedido: string
+    statusPedido: number
 }

@@ -31,6 +31,20 @@ router.post("/",authController.verificaToken, async (req: Request, res: Response
     res.status(500).send("Erro interno do servidor");
   }
 });
+
+router.patch(
+  "/",
+  authController.verificaToken,
+  // authController.verificaAcesso,
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      pedidoController.updateStatusPedido(req, res, next);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 router.delete("/:idPedido",authController.verificaToken, async (req: Request, res: Response, next: NextFunction) => {
   try {
     pedidoController.deletePedido(req, res, next);

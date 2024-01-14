@@ -19,6 +19,12 @@ export class PedidoServices {
   async addPedido(Pedido: PedidoProps) {
     return await this.PedidoRepository.addPedido(Pedido);
   }
+  async updateStatusPedido(idPedido: number, statusPedido: number) {
+    return await this.PedidoRepository.updateStatusPedido(
+      idPedido,
+      statusPedido
+    );
+  }
   async deletePedido(idPedido: number) {
     return await this.PedidoRepository.deletePedido(idPedido);
   }

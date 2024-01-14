@@ -5,12 +5,14 @@ export default class Pedido {
   descricao: string;
   fkCliente: number;
   dataPedido: string;
+  statusPedido: number;
 
   constructor(Pedido: PedidoProps) {
     this.idPedido = Pedido.idPedido;
     this.descricao = Pedido.descricao;
     this.fkCliente = Pedido.fkCliente;
     this.dataPedido = Pedido.dataPedido;
+    this.statusPedido = Pedido.statusPedido;
   }
 
   get object(): PedidoProps {
@@ -19,6 +21,7 @@ export default class Pedido {
       descricao: this.descricao,
       fkCliente: this.fkCliente,
       dataPedido: this.dataPedido,
+      statusPedido: this.statusPedido
     };
   }
 }

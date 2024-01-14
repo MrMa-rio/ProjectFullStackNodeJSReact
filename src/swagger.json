@@ -379,7 +379,7 @@
                        "bearerAuth": []
                     }
                  ],
-                "summary": "Rota responsavel por atualizar um pedido",
+                "summary": "Rota responsavel por atualizar o andamento de um pedido",
                 "description": "Rota responsavel por atualizar um pedido ja existente",
                 "tags": [
                     "Pedido"
@@ -388,7 +388,7 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#components/schemas/pedido"
+                                "$ref": "#components/schemas/updateStatusPedido"
                             }
                         }
                     }
@@ -398,7 +398,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#components/schemas/pedido"
+                                    "$ref": "#components/schemas/status"
                                 }
                             }
                         }
@@ -864,6 +864,20 @@
                     },
                     "dataPedido": {
                         "type": "string"
+                    },
+                    "statusPedido": {
+                        "type": "number"
+                    }
+                }       
+            },
+            "updateStatusPedido":{
+                "type":"object",
+                "properties":{
+                    "idPedido": {
+                        "type":"number"
+                    },
+                    "statusPedido": {
+                        "type": "number"
                     }
                 }       
             },
