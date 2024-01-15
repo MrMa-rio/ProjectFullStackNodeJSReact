@@ -16,6 +16,7 @@ import {
   StatusCodeCliente,
   StatusCodeUsuario,
 } from "src/interfaces/StatusProps/StatusProps";
+import { TotalPedidoProps } from "src/interfaces/TotalPedidoProps/TotalPedidoProps";
 
 export default class DB implements DBGeneric {
   // Clientes
@@ -217,6 +218,25 @@ export default class DB implements DBGeneric {
       return resultados;
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  async getCalculoTotalPedido(idPedido:number){
+    try {
+      const sql = `call db_restaurant.calculoItemsTotalPedido(${idPedido});`
+      const resultados: TotalPedidoProps[] = await new Promise((resolve, reject) => {
+        connection.query(sql, (error, results:any) => {
+          if (error) {
+            reject(error);
+          } else {
+            //console.log(results);
+            resolve(results[0]);
+          }
+        })
+      })
+      return resultados[0]
+    } catch (error) {
+      
     }
   }
 

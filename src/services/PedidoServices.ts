@@ -25,6 +25,13 @@ export class PedidoServices {
       statusPedido
     );
   }
+
+  async getCalculoTotalPedido(idPedido: number) {
+    const pedido = await this.PedidoRepository.getCalculoTotalPedido(idPedido);
+    if (!pedido) return null;
+    return pedido;
+  }
+
   async deletePedido(idPedido: number) {
     return await this.PedidoRepository.deletePedido(idPedido);
   }

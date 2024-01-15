@@ -23,6 +23,11 @@ export class PedidoRepository {
     if (!pedido) return null;
     return new Pedido(pedido);
   }
+  async getCalculoTotalPedido(idPedido: number) {
+    const pedido = await this.DB.getCalculoTotalPedido(idPedido);
+    if (!pedido) return null;
+    return pedido;
+  }
   async updateStatusPedido(idPedido: number, statusPedido: number) {
     return await this.DB.updateStatusPedido(idPedido, statusPedido);
   }

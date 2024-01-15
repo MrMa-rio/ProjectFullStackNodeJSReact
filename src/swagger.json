@@ -495,6 +495,51 @@
                 }
             }
         },
+        "/pedidos/{idPedido}/calculo": {
+            "get": {
+                "security": [
+                    {
+                       "bearerAuth": []
+                    }
+                 ],
+                "parameters": [
+                    {
+                      "in": "path",
+                      "name": "idPedido",
+                      "required": true,
+                      "schema": {
+                        "type": "number"
+                      },
+                      "description": "Id do Pedido"
+                    }
+                ],
+                "summary": "Busca o resultado do calculo pedido",
+                "description": "Rota responsavel por retornar o calculo dos itens do pedido",
+                "tags": [
+                    "Pedido"
+                ],
+                "responses": {
+                    "200":{
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/calculoPedido"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#components/schemas/status"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/itemspedidos/{idPedido}": {
             "get": {
                 "security": [
@@ -878,6 +923,14 @@
                     },
                     "statusPedido": {
                         "type": "number"
+                    }
+                }       
+            },
+            "calculoPedido":{
+                "type":"object",
+                "properties":{
+                    "total": {
+                        "type":"number"
                     }
                 }       
             },

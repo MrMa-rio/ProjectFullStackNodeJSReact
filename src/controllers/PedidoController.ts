@@ -63,6 +63,21 @@ export class PedidoController {
     }
   }
 
+  async getCalculoTotalPedido(req: Request, res: Response, next: NextFunction) {
+    try {
+      const pedido = Number(req.params.idPedido);
+      if (isNaN(pedido))
+        return res.status(400).json({ message: " Pedido inválido " }); 
+      const response = await this.PedidoServices.getCalculoTotalPedido(pedido);
+      if (!response)
+        return res.status(404).json({ status:404, message: " Pedido não encontrado " });
+      return res.status(200).json(response);
+    } catch (e) {
+      return next(e);
+    }
+  }
+
+
   async deletePedido(req: Request, res: Response, next: NextFunction) {
     try {
       const Pedido = Number(req.params.idPedido);

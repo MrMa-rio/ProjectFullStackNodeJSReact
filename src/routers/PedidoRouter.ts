@@ -23,6 +23,16 @@ router.get("/:idPedido",authController.verificaToken, async (req: Request, res: 
   }
 );
 
+router.get("/:idPedido/calculo",authController.verificaToken, async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    pedidoController.getCalculoTotalPedido(req, res, next); 
+  } catch (error) {
+    console.error("Erro na consulta ao banco de dados:", error);
+    res.status(500).send("Erro interno do servidor");
+  }
+}
+);
+
 router.post("/",authController.verificaToken, async (req: Request, res: Response, next: NextFunction) => {
   try {
     pedidoController.addPedido(req, res, next);
